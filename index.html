@@ -198,10 +198,20 @@
     .sectors { background: var(--bg); padding: 70px 0; }
     .sector-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 18px; }
     .sector {
-      background: #fff; border-radius: 14px; padding: 22px 12px; text-align: center;
-      box-shadow: 0 4px 14px rgba(18,48,90,0.07); font-weight: 700; color: var(--navy); font-size: .95rem;
+      position: relative; height: 180px; border-radius: 16px; overflow: hidden;
+      background: linear-gradient(135deg, var(--navy), var(--teal));
+      box-shadow: 0 8px 22px rgba(18,48,90,0.15); cursor: default;
     }
-    .sector span { display: block; font-size: 2rem; margin-bottom: 6px; }
+    .sector img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s; }
+    .sector:hover img { transform: scale(1.1); }
+    .sector::after {
+      content: ""; position: absolute; inset: 0;
+      background: linear-gradient(180deg, rgba(11,31,61,0) 35%, rgba(11,31,61,0.88) 100%);
+    }
+    .sector span {
+      position: absolute; left: 0; right: 0; bottom: 14px; z-index: 2; text-align: center;
+      color: #fff; font-weight: 800; font-size: 1rem; text-shadow: 0 2px 6px rgba(0,0,0,.4);
+    }
 
     /* Testimonios */
     .testimonials { background: var(--white); }
@@ -217,9 +227,16 @@
     .about .section-title h2 { color: #fff; }
     .about .section-title p { color: rgba(255,255,255,.8); }
     .about-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; text-align: center; }
-    .stat { background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.12); border-radius: var(--radius); padding: 30px 15px; }
-    .stat strong { display: block; font-size: 2.3rem; font-weight: 900; color: var(--teal-light); }
+    .stat { background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.12); border-radius: var(--radius); overflow: hidden; transition: transform .3s; }
+    .stat:hover { transform: translateY(-6px); }
+    .stat-img { height: 150px; background: linear-gradient(135deg, var(--blue), var(--teal)); overflow: hidden; }
+    .stat-img img { width: 100%; height: 100%; object-fit: cover; }
+    .stat-body { padding: 20px 15px 24px; }
+    .stat strong { display: block; font-size: 2rem; font-weight: 900; color: var(--teal-light); line-height: 1.2; }
     .stat span { color: rgba(255,255,255,.85); font-weight: 500; }
+    .project-img img { width: 100%; height: 100%; object-fit: cover; }
+    .project-img { overflow: hidden; }
+    .info-item i svg { width: 22px; height: 22px; stroke: var(--teal); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
 
     /* Contacto */
     .contact { background: var(--bg); }
@@ -501,15 +518,15 @@
              Para usar una foto: cambia <div class="project-img p1">...</div>
              por <img src="proyecto1.jpg" alt="Nombre del proyecto" style="height:200px;width:100%;object-fit:cover"> -->
         <a href="#" class="project reveal">
-          <div class="project-img p1">Proyecto 1</div>
+          <div class="project-img p1"><img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80" alt="Proyecto 1" loading="lazy" onerror="this.style.display='none'"></div>
           <div class="project-info"><h3>Nombre del proyecto</h3><p>Página web · Restaurante</p></div>
         </a>
         <a href="#" class="project reveal">
-          <div class="project-img p2">Proyecto 2</div>
+          <div class="project-img p2"><img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=800&q=80" alt="Proyecto 2" loading="lazy" onerror="this.style.display='none'"></div>
           <div class="project-info"><h3>Nombre del proyecto</h3><p>Tienda online · Moda</p></div>
         </a>
         <a href="#" class="project reveal">
-          <div class="project-img p3">Proyecto 3</div>
+          <div class="project-img p3"><img src="https://images.unsplash.com/photo-1551650975-87deedd944c3?auto=format&fit=crop&w=800&q=80" alt="Proyecto 3" loading="lazy" onerror="this.style.display='none'"></div>
           <div class="project-info"><h3>Nombre del proyecto</h3><p>App móvil · Servicios</p></div>
         </a>
       </div>
@@ -524,16 +541,17 @@
         <div class="line"></div>
       </div>
       <div class="sector-grid">
-        <div class="sector reveal"><span>🍽️</span>Restaurantes</div>
-        <div class="sector reveal"><span>🛍️</span>Tiendas</div>
-        <div class="sector reveal"><span>🏥</span>Clínicas</div>
-        <div class="sector reveal"><span>🏗️</span>Constructoras</div>
-        <div class="sector reveal"><span>💇</span>Salones de belleza</div>
-        <div class="sector reveal"><span>🎓</span>Academias</div>
-        <div class="sector reveal"><span>🏨</span>Hoteles</div>
-        <div class="sector reveal"><span>⚖️</span>Abogados</div>
-        <div class="sector reveal"><span>🚗</span>Talleres</div>
-        <div class="sector reveal"><span>🏋️</span>Gimnasios</div>
+        <!-- Para cambiar una foto, reemplaza el enlace del src por el de tu imagen -->
+        <div class="sector reveal"><img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=600&q=80" alt="Restaurantes" loading="lazy" onerror="this.style.display='none'"><span>Restaurantes</span></div>
+        <div class="sector reveal"><img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=600&q=80" alt="Tiendas" loading="lazy" onerror="this.style.display='none'"><span>Tiendas</span></div>
+        <div class="sector reveal"><img src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=600&q=80" alt="Clínicas" loading="lazy" onerror="this.style.display='none'"><span>Clínicas</span></div>
+        <div class="sector reveal"><img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=600&q=80" alt="Constructoras" loading="lazy" onerror="this.style.display='none'"><span>Constructoras</span></div>
+        <div class="sector reveal"><img src="https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=600&q=80" alt="Salones de belleza" loading="lazy" onerror="this.style.display='none'"><span>Salones de belleza</span></div>
+        <div class="sector reveal"><img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=600&q=80" alt="Academias" loading="lazy" onerror="this.style.display='none'"><span>Academias</span></div>
+        <div class="sector reveal"><img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=600&q=80" alt="Hoteles" loading="lazy" onerror="this.style.display='none'"><span>Hoteles</span></div>
+        <div class="sector reveal"><img src="https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=600&q=80" alt="Abogados" loading="lazy" onerror="this.style.display='none'"><span>Abogados</span></div>
+        <div class="sector reveal"><img src="https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?auto=format&fit=crop&w=600&q=80" alt="Talleres" loading="lazy" onerror="this.style.display='none'"><span>Talleres</span></div>
+        <div class="sector reveal"><img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=600&q=80" alt="Gimnasios" loading="lazy" onerror="this.style.display='none'"><span>Gimnasios</span></div>
       </div>
     </div>
   </section>
@@ -586,10 +604,22 @@
       </div>
       <!-- Ajusta estas cifras a tus datos reales -->
       <div class="about-grid">
-        <div class="stat reveal"><strong>100%</strong><span>Diseño a medida</span></div>
-        <div class="stat reveal"><strong>24/7</strong><span>Tu web siempre en línea</span></div>
-        <div class="stat reveal"><strong>📱</strong><span>Adaptable a celulares</span></div>
-        <div class="stat reveal"><strong>🤝</strong><span>Soporte personalizado</span></div>
+        <div class="stat reveal">
+          <div class="stat-img"><img src="https://images.unsplash.com/photo-1561070791-2526d30994b5?auto=format&fit=crop&w=600&q=80" alt="Diseño a medida" loading="lazy" onerror="this.style.display='none'"></div>
+          <div class="stat-body"><strong>100%</strong><span>Diseño a medida</span></div>
+        </div>
+        <div class="stat reveal">
+          <div class="stat-img"><img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=600&q=80" alt="Web siempre en línea" loading="lazy" onerror="this.style.display='none'"></div>
+          <div class="stat-body"><strong>24/7</strong><span>Tu web siempre en línea</span></div>
+        </div>
+        <div class="stat reveal">
+          <div class="stat-img"><img src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&fit=crop&w=600&q=80" alt="Adaptable a celulares" loading="lazy" onerror="this.style.display='none'"></div>
+          <div class="stat-body"><strong>Móvil</strong><span>Adaptable a celulares</span></div>
+        </div>
+        <div class="stat reveal">
+          <div class="stat-img"><img src="https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=600&q=80" alt="Soporte personalizado" loading="lazy" onerror="this.style.display='none'"></div>
+          <div class="stat-body"><strong>1 a 1</strong><span>Soporte personalizado</span></div>
+        </div>
       </div>
     </div>
   </section>
@@ -600,10 +630,10 @@
       <div class="contact-info reveal">
         <h3>Consulta tu proyecto</h3>
         <p>Cuéntanos qué necesitas y te enviamos una cotización gratis. Te respondemos rápido por WhatsApp.</p>
-        <div class="info-item"><i>💬</i>WhatsApp: +51 999 999 999</div>
-        <div class="info-item"><i>✉️</i>contacto@ziko.pro</div>
-        <div class="info-item"><i>🌐</i>www.ziko.pro</div>
-        <div class="info-item"><i>📍</i>Lima, Perú</div>
+        <div class="info-item"><i><svg viewBox="0 0 24 24"><path d="M21 11.5a8.4 8.4 0 0 1-12.4 7.4L3 21l2.1-5.4A8.4 8.4 0 1 1 21 11.5z"/></svg></i>WhatsApp: +51 999 999 999</div>
+        <div class="info-item"><i><svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 6l-10 7L2 6"/></svg></i>contacto@ziko.pro</div>
+        <div class="info-item"><i><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20"/></svg></i>www.ziko.pro</div>
+        <div class="info-item"><i><svg viewBox="0 0 24 24"><path d="M12 22s8-7.6 8-13a8 8 0 0 0-16 0c0 5.4 8 13 8 13z"/><circle cx="12" cy="9" r="3"/></svg></i>Lima, Perú</div>
       </div>
 
       <form id="form" class="reveal">
