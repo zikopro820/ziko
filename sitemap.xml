@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://ziko.pro/</loc></url>
-  <url><loc>https://ziko.pro/servicios.html</loc></url>
-  <url><loc>https://ziko.pro/precios.html</loc></url>
-  <url><loc>https://ziko.pro/portafolio.html</loc></url>
-  <url><loc>https://ziko.pro/nosotros.html</loc></url>
-  <url><loc>https://ziko.pro/contacto.html</loc></url>
-  <url><loc>https://ziko.pro/privacidad.html</loc></url>
-  <url><loc>https://ziko.pro/terminos.html</loc></url>
-  <url><loc>https://ziko.pro/reclamaciones.html</loc></url>
+  <url><loc>https://ziko.pro/servicios</loc></url>
+  <url><loc>https://ziko.pro/precios</loc></url>
+  <url><loc>https://ziko.pro/portafolio</loc></url>
+  <url><loc>https://ziko.pro/nosotros</loc></url>
+  <url><loc>https://ziko.pro/contacto</loc></url>
+  <url><loc>https://ziko.pro/privacidad</loc></url>
+  <url><loc>https://ziko.pro/terminos</loc></url>
+  <url><loc>https://ziko.pro/reclamaciones</loc></url>
 </urlset>
