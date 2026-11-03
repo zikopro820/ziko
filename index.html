@@ -3,379 +3,51 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ziko.pro | Desarrollo Web & Aplicaciones</title>
-  <meta name="description" content="ziko.pro crea páginas web y aplicaciones móviles profesionales para negocios. Diseño personalizado, adaptable a todos los dispositivos y SEO incluido. Precios desde $200 USD.">
-  <meta property="og:title" content="ziko.pro | Páginas web y apps para tu negocio">
-  <meta property="og:description" content="Páginas web y aplicaciones profesionales para tu negocio. Precios desde $200 USD.">
-  <meta property="og:url" content="https://ziko.pro">
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%2312305a'/><path d='M25 28h50L35 72h40' stroke='%2322b8b5' stroke-width='12' fill='none' stroke-linecap='round' stroke-linejoin='round'/></svg>">
+  <title>ziko.pro | Páginas Web y Aplicaciones para tu Negocio</title>
+  <meta name="description" content="ziko.pro crea páginas web y aplicaciones móviles profesionales para negocios. Diseño personalizado, adaptable a celulares y SEO incluido. Precios desde $200 USD.">
+  <link rel="canonical" href="https://ziko.pro/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="ziko.pro">
+  <meta property="og:title" content="ziko.pro | Páginas Web y Aplicaciones para tu Negocio">
+  <meta property="og:description" content="ziko.pro crea páginas web y aplicaciones móviles profesionales para negocios. Diseño personalizado, adaptable a celulares y SEO incluido. Precios desde $200 USD.">
+  <meta property="og:url" content="https://ziko.pro/">
+  <meta property="og:image" content="https://images.unsplash.com/photo-1547658719-da2b51169166?auto=format&fit=crop&w=1200&q=80">
+  <meta name="theme-color" content="#12305a">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-
-  <style>
-    :root {
-      --navy: #12305a;
-      --navy-dark: #0b1f3d;
-      --blue: #2a6fdb;
-      --teal: #1fa5a8;
-      --teal-light: #22c3be;
-      --text: #1e2b3c;
-      --muted: #5b6b80;
-      --bg: #f3f7fb;
-      --white: #ffffff;
-      --shadow: 0 10px 30px rgba(18, 48, 90, 0.12);
-      --radius: 16px;
-    }
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-    body {
-      font-family: 'Montserrat', sans-serif;
-      color: var(--text);
-      background: var(--bg);
-      line-height: 1.6;
-      overflow-x: hidden;
-    }
-    a { text-decoration: none; color: inherit; }
-    img { max-width: 100%; display: block; }
-    .container { width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 20px; }
-
-    /* ============ HEADER ============ */
-    header {
-      position: sticky; top: 0; z-index: 100;
-      background: rgba(255,255,255,0.85);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      box-shadow: 0 2px 15px rgba(18,48,90,0.06);
-    }
-    .nav { display: flex; align-items: center; justify-content: space-between; height: 80px; }
-    .logo { display: flex; align-items: center; gap: 10px; }
-    .logo svg { width: 48px; height: 48px; }
-    .logo-text strong { display: block; font-size: 1.7rem; font-weight: 800; color: var(--navy); line-height: 1; }
-    .logo-text span { display: block; font-size: 0.58rem; font-weight: 700; color: var(--navy); letter-spacing: 0.5px; margin-top: 3px; }
-    .menu { display: flex; align-items: center; gap: 34px; list-style: none; }
-    .menu a { font-weight: 600; font-size: 0.95rem; color: var(--navy); transition: color .2s; }
-    .menu a:hover { color: var(--teal); }
-    .btn {
-      display: inline-block; padding: 13px 30px; border-radius: 10px;
-      font-weight: 700; font-size: 0.95rem; cursor: pointer; border: none;
-      transition: transform .2s, box-shadow .2s; font-family: inherit;
-    }
-    .btn:hover { transform: translateY(-2px); }
-    .btn-teal { background: linear-gradient(135deg, var(--teal), var(--teal-light)); color: #fff !important; box-shadow: 0 6px 18px rgba(31,165,168,0.35); }
-    .btn-outline { border: 2px solid var(--navy); color: var(--navy); background: transparent; }
-    .hamburger { display: none; background: none; border: none; cursor: pointer; padding: 6px; }
-    .hamburger span { display: block; width: 26px; height: 3px; background: var(--navy); margin: 5px 0; border-radius: 3px; transition: .3s; }
-
-    /* ============ HERO ============ */
-    .hero {
-      position: relative;
-      padding: 70px 0 90px;
-      background:
-        radial-gradient(circle at 85% 30%, rgba(42,111,219,0.15), transparent 45%),
-        radial-gradient(circle at 10% 80%, rgba(31,165,168,0.12), transparent 40%),
-        linear-gradient(180deg, #eef4fa 0%, #f7fafd 100%);
-      overflow: hidden;
-    }
-    .hero-grid { display: grid; grid-template-columns: 1.1fr 1fr; gap: 40px; align-items: center; }
-    .hero h1 {
-      font-size: clamp(2rem, 4.5vw, 3.3rem); font-weight: 900; line-height: 1.1;
-      color: var(--navy); text-transform: uppercase; margin-bottom: 28px;
-    }
-    .hero h1 .grad { background: linear-gradient(90deg, var(--blue), var(--teal)); -webkit-background-clip: text; background-clip: text; color: transparent; }
-    .features { list-style: none; margin-bottom: 34px; }
-    .features li { display: flex; align-items: center; gap: 12px; font-size: 1.15rem; font-weight: 600; color: var(--navy); margin-bottom: 12px; }
-    .features li::before {
-      content: "✓"; flex-shrink: 0; width: 26px; height: 26px; border-radius: 50%;
-      background: linear-gradient(135deg, var(--teal), var(--teal-light)); color: #fff;
-      display: grid; place-items: center; font-size: 0.85rem; font-weight: 800;
-    }
-    .hero-actions { display: flex; gap: 15px; flex-wrap: wrap; }
-
-    /* Mockup */
-    .mockup { position: relative; height: 460px; }
-    .price-badge {
-      position: absolute; top: 20px; left: -10px; z-index: 5;
-      background: rgba(255,255,255,0.92); backdrop-filter: blur(8px);
-      padding: 14px 24px; border-radius: 14px; box-shadow: var(--shadow); text-align: center;
-      animation: float 4s ease-in-out infinite;
-    }
-    .price-badge small { display: block; font-size: 0.75rem; font-weight: 700; color: var(--navy); letter-spacing: 1px; }
-    .price-badge strong { display: block; font-size: 1.9rem; font-weight: 900; line-height: 1.1; background: linear-gradient(90deg, var(--blue), var(--teal)); -webkit-background-clip: text; background-clip: text; color: transparent; }
-    .laptop { position: absolute; top: 40px; right: 0; width: 88%; }
-    .laptop-screen {
-      background: var(--navy-dark); border-radius: 14px 14px 0 0; padding: 10px;
-      box-shadow: 0 20px 50px rgba(11,31,61,0.3);
-    }
-    .screen-inner { background: #fff; border-radius: 6px; height: 230px; overflow: hidden; }
-    .s-nav { display: flex; align-items: center; justify-content: space-between; padding: 8px 12px; border-bottom: 1px solid #e8eef5; }
-    .s-logo { width: 50px; height: 8px; background: var(--navy); border-radius: 4px; }
-    .s-links { display: flex; gap: 6px; }
-    .s-links i { width: 22px; height: 5px; background: #cdd8e5; border-radius: 3px; }
-    .s-hero { display: flex; gap: 12px; padding: 14px; background: linear-gradient(135deg, var(--navy), var(--blue)); height: 120px; }
-    .s-hero .txt { flex: 1; }
-    .s-hero .txt i { display: block; height: 8px; background: rgba(255,255,255,.85); border-radius: 4px; margin-bottom: 7px; }
-    .s-hero .txt i:nth-child(2) { width: 70%; }
-    .s-hero .txt i:nth-child(3) { width: 45%; height: 12px; background: var(--teal-light); margin-top: 12px; }
-    .s-hero .img { width: 40%; background: rgba(255,255,255,.18); border-radius: 6px; }
-    .s-cards { display: flex; gap: 8px; padding: 12px; }
-    .s-cards i { flex: 1; height: 55px; background: #eef3f9; border-radius: 6px; }
-    .laptop-base { height: 14px; background: linear-gradient(180deg, #c9d3df, #9eabbb); border-radius: 0 0 14px 14px; margin: 0 -4%; }
-    .tablet {
-      position: absolute; bottom: 10px; right: 8%; width: 58%; z-index: 4;
-      background: var(--navy-dark); border-radius: 16px; padding: 9px;
-      box-shadow: 0 25px 50px rgba(11,31,61,0.35);
-      transform: perspective(900px) rotateX(18deg);
-    }
-    .tablet-inner { background: #f6f9fc; border-radius: 9px; height: 170px; display: flex; overflow: hidden; }
-    .t-side { width: 22%; background: var(--navy); padding: 10px 6px; }
-    .t-side i { display: block; height: 5px; background: rgba(255,255,255,.4); border-radius: 3px; margin-bottom: 9px; }
-    .t-main { flex: 1; padding: 10px; }
-    .t-title { width: 40%; height: 7px; background: var(--navy); border-radius: 4px; margin-bottom: 10px; }
-    .chart { display: flex; align-items: flex-end; gap: 6px; height: 90px; background: #fff; border-radius: 8px; padding: 10px; box-shadow: 0 2px 8px rgba(0,0,0,.05); }
-    .chart i { flex: 1; border-radius: 4px 4px 0 0; background: linear-gradient(180deg, var(--teal-light), var(--blue)); }
-    .t-stats { display: flex; gap: 6px; margin-top: 8px; }
-    .t-stats i { flex: 1; height: 28px; background: #fff; border-radius: 6px; box-shadow: 0 2px 6px rgba(0,0,0,.05); }
-    .float-icon {
-      position: absolute; z-index: 6; width: 58px; height: 58px; border-radius: 14px;
-      background: rgba(255,255,255,0.88); backdrop-filter: blur(6px); box-shadow: var(--shadow);
-      display: grid; place-items: center; font-weight: 800; color: var(--blue);
-      animation: float 5s ease-in-out infinite;
-    }
-    .float-icon svg { width: 28px; height: 28px; }
-    .fi-1 { top: 0; right: 30%; animation-delay: .5s; }
-    .fi-2 { top: 10px; right: -10px; animation-delay: 1s; }
-    .fi-3 { bottom: 60px; left: 0; animation-delay: 1.5s; font-size: 1rem; }
-    @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
-    .hero-photo {
-      position: absolute; top: 45px; right: 0; width: 88%; height: 340px; z-index: 2;
-      border-radius: 22px; overflow: hidden;
-      background: linear-gradient(135deg, var(--navy), var(--blue));
-      box-shadow: 0 25px 60px rgba(11,31,61,0.35);
-      border: 6px solid #fff;
-    }
-    .hero-photo img { width: 100%; height: 100%; object-fit: cover; }
-    .hero-phone {
-      position: absolute; bottom: 0; right: 4%; width: 34%; height: 210px; z-index: 4;
-      border-radius: 20px; overflow: hidden;
-      background: linear-gradient(135deg, var(--teal), var(--blue));
-      box-shadow: 0 20px 45px rgba(11,31,61,0.4);
-      border: 6px solid #fff;
-      animation: float 6s ease-in-out infinite;
-    }
-    .hero-phone img { width: 100%; height: 100%; object-fit: cover; }
-    @media (max-width: 480px) {
-      .hero-photo { height: 240px; top: 40px; }
-      .hero-phone { height: 140px; width: 38%; }
-    }
-
-    /* ============ SECCIONES ============ */
-    section { padding: 90px 0; }
-    .section-title { text-align: center; margin-bottom: 55px; }
-    .section-title h2 { font-size: clamp(1.7rem, 3.5vw, 2.4rem); font-weight: 900; color: var(--navy); text-transform: uppercase; }
-    .section-title p { color: var(--muted); max-width: 620px; margin: 12px auto 0; font-size: 1.05rem; }
-    .section-title .line { width: 70px; height: 5px; border-radius: 5px; margin: 14px auto 0; background: linear-gradient(90deg, var(--blue), var(--teal)); }
-
-    /* Servicios */
-    .services { background: var(--white); }
-    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
-    .card {
-      background: var(--white); border-radius: var(--radius); padding: 34px 28px;
-      box-shadow: var(--shadow); transition: transform .3s, box-shadow .3s; border: 1px solid #e8eef5;
-    }
-    .card:hover { transform: translateY(-8px); box-shadow: 0 18px 40px rgba(18,48,90,0.18); }
-    .card-icon {
-      width: 64px; height: 64px; border-radius: 16px; margin-bottom: 20px;
-      background: linear-gradient(135deg, var(--blue), var(--teal)); display: grid; place-items: center;
-    }
-    .card-icon svg { width: 32px; height: 32px; stroke: #fff; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
-    .card h3 { font-size: 1.25rem; font-weight: 800; color: var(--navy); margin-bottom: 10px; }
-    .card p { color: var(--muted); font-size: 0.97rem; }
-
-    /* Planes */
-    .plans { background: var(--bg); }
-    .plan { text-align: center; position: relative; }
-    .plan.featured { border: 2px solid var(--teal); transform: scale(1.03); }
-    .plan .tag { position: absolute; top: -14px; left: 50%; transform: translateX(-50%); background: var(--teal); color: #fff; font-size: .75rem; font-weight: 700; padding: 5px 16px; border-radius: 20px; }
-    .plan .price { font-size: 2.6rem; font-weight: 900; color: var(--navy); margin: 10px 0; }
-    .plan .price small { font-size: 1rem; color: var(--muted); font-weight: 600; }
-    .plan ul { list-style: none; text-align: left; margin: 20px 0 28px; }
-    .plan li { padding: 8px 0; border-bottom: 1px solid #eef2f7; color: var(--text); font-size: .95rem; }
-    .plan li::before { content: "✓ "; color: var(--teal); font-weight: 800; }
-
-    /* Portafolio */
-    .portfolio { background: var(--white); }
-    .project { border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow); background: #fff; transition: transform .3s; }
-    .project:hover { transform: translateY(-6px); }
-    .project-img { height: 200px; display: grid; place-items: center; color: #fff; font-weight: 800; font-size: 1.3rem; }
-    .p1 { background: linear-gradient(135deg, #12305a, #2a6fdb); }
-    .p2 { background: linear-gradient(135deg, #1fa5a8, #0e6f86); }
-    .p3 { background: linear-gradient(135deg, #2a6fdb, #22c3be); }
-    .project-info { padding: 20px 22px; }
-    .project-info h3 { color: var(--navy); font-weight: 800; font-size: 1.1rem; }
-    .project-info p { color: var(--muted); font-size: .9rem; }
-
-    /* Sectores */
-    .sectors { background: var(--bg); padding: 70px 0; }
-    .sector-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 18px; }
-    .sector {
-      position: relative; height: 180px; border-radius: 16px; overflow: hidden;
-      background: linear-gradient(135deg, var(--navy), var(--teal));
-      box-shadow: 0 8px 22px rgba(18,48,90,0.15); cursor: default;
-    }
-    .sector img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s; }
-    .sector:hover img { transform: scale(1.1); }
-    .sector::after {
-      content: ""; position: absolute; inset: 0;
-      background: linear-gradient(180deg, rgba(11,31,61,0) 35%, rgba(11,31,61,0.88) 100%);
-    }
-    .sector span {
-      position: absolute; left: 0; right: 0; bottom: 14px; z-index: 2; text-align: center;
-      color: #fff; font-weight: 800; font-size: 1rem; text-shadow: 0 2px 6px rgba(0,0,0,.4);
-    }
-
-    /* Testimonios */
-    .testimonials { background: var(--white); }
-    .testi { display: flex; gap: 18px; align-items: flex-start; }
-    .avatar { flex-shrink: 0; width: 60px; height: 60px; border-radius: 50%; background: linear-gradient(135deg, var(--blue), var(--teal)); color: #fff; display: grid; place-items: center; font-weight: 800; font-size: 1.3rem; }
-    .testi p { font-style: italic; color: var(--text); margin-bottom: 10px; }
-    .testi strong { color: var(--navy); }
-    .testi small { display: block; color: var(--muted); }
-    .stars { color: #f5b400; letter-spacing: 2px; }
-
-    /* Nosotros */
-    .about { background: linear-gradient(135deg, var(--navy-dark), var(--navy)); color: #fff; }
-    .about .section-title h2 { color: #fff; }
-    .about .section-title p { color: rgba(255,255,255,.8); }
-    .about-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; text-align: center; }
-    .stat { background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.12); border-radius: var(--radius); overflow: hidden; transition: transform .3s; }
-    .stat:hover { transform: translateY(-6px); }
-    .stat-img { height: 150px; background: linear-gradient(135deg, var(--blue), var(--teal)); overflow: hidden; }
-    .stat-img img { width: 100%; height: 100%; object-fit: cover; }
-    .stat-body { padding: 20px 15px 24px; }
-    .stat strong { display: block; font-size: 2rem; font-weight: 900; color: var(--teal-light); line-height: 1.2; }
-    .stat span { color: rgba(255,255,255,.85); font-weight: 500; }
-    .project-img img { width: 100%; height: 100%; object-fit: cover; }
-    .project-img { overflow: hidden; }
-    .info-item i svg { width: 22px; height: 22px; stroke: var(--teal); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
-
-    /* Contacto */
-    .contact { background: var(--bg); }
-    .contact-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 40px; align-items: start; }
-    .contact-info h3 { font-size: 1.6rem; font-weight: 900; color: var(--navy); margin-bottom: 14px; }
-    .contact-info p { color: var(--muted); margin-bottom: 24px; }
-    .info-item { display: flex; align-items: center; gap: 14px; margin-bottom: 16px; font-weight: 600; color: var(--navy); }
-    .info-item i { font-style: normal; width: 46px; height: 46px; border-radius: 12px; background: #fff; box-shadow: var(--shadow); display: grid; place-items: center; font-size: 1.2rem; }
-    form { background: #fff; padding: 34px; border-radius: var(--radius); box-shadow: var(--shadow); }
-    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-    label { display: block; font-weight: 600; font-size: .88rem; color: var(--navy); margin-bottom: 6px; }
-    input, select, textarea {
-      width: 100%; padding: 13px 15px; border: 1.5px solid #dbe4ee; border-radius: 10px;
-      font-family: inherit; font-size: .95rem; margin-bottom: 16px; background: #fafcfe; transition: border .2s;
-    }
-    input:focus, select:focus, textarea:focus { outline: none; border-color: var(--teal); }
-    textarea { resize: vertical; min-height: 110px; }
-    form .btn { width: 100%; font-size: 1rem; }
-
-    /* Footer */
-    footer { background: var(--navy-dark); color: rgba(255,255,255,.75); padding: 40px 0; }
-    .footer-grid { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; }
-    .socials { display: flex; gap: 12px; }
-    .socials a { width: 42px; height: 42px; border-radius: 50%; background: rgba(255,255,255,.1); display: grid; place-items: center; transition: background .2s; }
-    .socials a:hover { background: var(--teal); }
-    .socials svg { width: 20px; height: 20px; fill: #fff; }
-    footer strong { color: #fff; }
-
-    /* WhatsApp flotante */
-    .wa-float {
-      position: fixed; bottom: 24px; right: 24px; z-index: 200;
-      display: flex; align-items: center; gap: 10px;
-      background: #25d366; color: #fff; font-weight: 700;
-      padding: 14px 22px; border-radius: 50px; box-shadow: 0 8px 25px rgba(37,211,102,.45);
-      animation: pulse 2.5s infinite;
-    }
-    .wa-float svg { width: 26px; height: 26px; fill: #fff; }
-    @keyframes pulse { 0%,100% { box-shadow: 0 8px 25px rgba(37,211,102,.45); } 50% { box-shadow: 0 8px 35px rgba(37,211,102,.75); } }
-
-    /* Animación al hacer scroll */
-    .reveal { opacity: 0; transform: translateY(30px); transition: opacity .7s, transform .7s; }
-    .reveal.visible { opacity: 1; transform: none; }
-
-    /* ============ RESPONSIVE ============ */
-    @media (max-width: 960px) {
-      .hero-grid, .contact-grid { grid-template-columns: 1fr; }
-      .mockup { height: 400px; max-width: 520px; margin: 0 auto; width: 100%; }
-      .grid-3 { grid-template-columns: 1fr 1fr; }
-      .sector-grid { grid-template-columns: repeat(3, 1fr); }
-      .about-grid { grid-template-columns: 1fr 1fr; }
-      .plan.featured { transform: none; }
-    }
-    @media (max-width: 768px) {
-      .hamburger { display: block; }
-      .menu {
-        position: absolute; top: 80px; left: 0; right: 0; flex-direction: column; gap: 0;
-        background: #fff; box-shadow: 0 10px 20px rgba(0,0,0,.08);
-        max-height: 0; overflow: hidden; transition: max-height .35s;
-      }
-      .menu.open { max-height: 420px; }
-      .menu li { width: 100%; text-align: center; }
-      .menu a { display: block; padding: 15px; }
-      .menu .btn { margin: 10px 20px 20px; display: block; }
-      .grid-3 { grid-template-columns: 1fr; }
-      .sector-grid { grid-template-columns: 1fr 1fr; }
-      .form-row { grid-template-columns: 1fr; }
-      section { padding: 65px 0; }
-      .wa-float span { display: none; }
-      .wa-float { padding: 15px; }
-      .footer-grid { flex-direction: column; text-align: center; }
-    }
-    @media (max-width: 480px) {
-      .mockup { height: 320px; }
-      .screen-inner { height: 170px; }
-      .tablet-inner { height: 125px; }
-      .chart { height: 60px; }
-      .price-badge strong { font-size: 1.5rem; }
-      .features li { font-size: 1rem; }
-      .float-icon { width: 46px; height: 46px; }
-    }
-  </style>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-  <!-- ============ HEADER ============ -->
+  <!-- ============ MENÚ ============ -->
   <header>
     <div class="container nav">
-      <a href="#inicio" class="logo" aria-label="ziko.pro inicio">
+      <a href="index.html" class="logo" aria-label="ziko.pro inicio">
         <svg viewBox="0 0 100 100" aria-hidden="true">
-          <defs>
-            <linearGradient id="lg" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0" stop-color="#2a6fdb"/><stop offset="1" stop-color="#22c3be"/>
-            </linearGradient>
-          </defs>
-          <path d="M18 24h52L30 76h52" stroke="url(#lg)" stroke-width="13" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+          <defs><linearGradient id="lg1" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2a6fdb"/><stop offset="1" stop-color="#22c3be"/></linearGradient></defs>
+          <path d="M18 24h52L30 76h52" stroke="url(#lg1)" stroke-width="13" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
           <path d="M62 12l14 12-14 12" stroke="#12305a" stroke-width="7" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
           <path d="M38 64L24 76l14 12" stroke="#12305a" stroke-width="7" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
-        <div class="logo-text">
-          <strong>ziko.pro</strong>
-          <span>DESARROLLO WEB &amp; APLICACIONES</span>
-        </div>
+        <div class="logo-text"><strong>ziko.pro</strong><span>DESARROLLO WEB &amp; APLICACIONES</span></div>
       </a>
-      <button class="hamburger" id="hamburger" aria-label="Abrir menú">
-        <span></span><span></span><span></span>
-      </button>
+      <button class="hamburger" id="hamburger" aria-label="Abrir menú"><span></span><span></span><span></span></button>
       <ul class="menu" id="menu">
-        <li><a href="#servicios">SERVICIOS</a></li>
-        <li><a href="#portafolio">PORTAFOLIO</a></li>
-        <li><a href="#nosotros">NOSOTROS</a></li>
-        <li><a href="#contacto">CONTACTO</a></li>
-        <li><a href="#contacto" class="btn btn-teal">COTIZAR</a></li>
+        <li><a href="index.html" class="active">INICIO</a></li>
+        <li><a href="servicios.html">SERVICIOS</a></li>
+        <li><a href="precios.html">PRECIOS</a></li>
+        <li><a href="portafolio.html">PORTAFOLIO</a></li>
+        <li><a href="nosotros.html">NOSOTROS</a></li>
+        <li><a href="contacto.html">CONTACTO</a></li>
+        <li><a href="contacto.html" class="btn btn-teal">COTIZAR</a></li>
       </ul>
     </div>
   </header>
 
-  <!-- ============ HERO ============ -->
-  <section class="hero" id="inicio">
+  <!-- ============ PORTADA ============ -->
+  <section class="hero">
     <div class="container hero-grid">
       <div class="reveal">
         <h1>Páginas web y aplicaciones <span class="grad">profesionales</span> para tu negocio</h1>
@@ -387,37 +59,24 @@
           <li>Integración de Redes Sociales</li>
         </ul>
         <div class="hero-actions">
-          <a href="#contacto" class="btn btn-teal">COTIZA TU PROYECTO</a>
-          <a href="#portafolio" class="btn btn-outline">VER PORTAFOLIO</a>
+          <a href="contacto.html" class="btn btn-teal">COTIZA TU PROYECTO</a>
+          <a href="portafolio.html" class="btn btn-outline">VER PORTAFOLIO</a>
         </div>
       </div>
-
       <div class="mockup reveal" aria-hidden="true">
-        <div class="price-badge">
-          <small>PRECIOS DESDE LOS</small>
-          <strong>$200 DÓLARES</strong>
-        </div>
-        <div class="float-icon fi-1">
-          <svg viewBox="0 0 24 24" fill="none" stroke="#2a6fdb" stroke-width="2.5" stroke-linecap="round"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5"/></svg>
-        </div>
-        <div class="float-icon fi-2">
-          <svg viewBox="0 0 24 24" fill="none" stroke="#1fa5a8" stroke-width="2.5" stroke-linecap="round"><circle cx="10" cy="10" r="6"/><path d="M15 15l6 6"/></svg>
-        </div>
+        <div class="price-badge"><small>PRECIOS DESDE LOS</small><strong>$200 DÓLARES</strong></div>
+        <div class="float-icon fi-1"><svg viewBox="0 0 24 24" fill="none" stroke="#2a6fdb" stroke-width="2.5" stroke-linecap="round"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5"/></svg></div>
+        <div class="float-icon fi-2"><svg viewBox="0 0 24 24" fill="none" stroke="#1fa5a8" stroke-width="2.5" stroke-linecap="round"><circle cx="10" cy="10" r="6"/><path d="M15 15l6 6"/></svg></div>
         <div class="float-icon fi-3">SEO</div>
-
-        <!-- FOTO PRINCIPAL: para cambiarla, reemplaza el enlace del src -->
-        <div class="hero-photo">
-          <img src="https://images.unsplash.com/photo-1547658719-da2b51169166?auto=format&fit=crop&w=1000&q=80" alt="Diseño de páginas web profesionales" onerror="this.style.display='none'">
-        </div>
-        <div class="hero-phone">
-          <img src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&fit=crop&w=500&q=80" alt="Aplicaciones móviles" onerror="this.style.display='none'">
-        </div>
+        <!-- FOTO PRINCIPAL: cambia el enlace del src para usar otra foto -->
+        <div class="hero-photo"><img src="https://images.unsplash.com/photo-1547658719-da2b51169166?auto=format&fit=crop&w=1000&q=80" alt="Diseño de páginas web" onerror="this.style.display='none'"></div>
+        <div class="hero-phone"><img src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&fit=crop&w=500&q=80" alt="Aplicaciones móviles" onerror="this.style.display='none'"></div>
       </div>
     </div>
   </section>
 
-  <!-- ============ SERVICIOS ============ -->
-  <section class="services" id="servicios">
+  <!-- ============ SERVICIOS (resumen) ============ -->
+  <section class="bg-white">
     <div class="container">
       <div class="section-title reveal">
         <h2>Nuestros Servicios</h2>
@@ -429,123 +88,50 @@
           <div class="card-icon"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div>
           <h3>Páginas Web</h3>
           <p>Sitios modernos, rápidos y atractivos que transmiten confianza y convierten visitas en clientes.</p>
+          <a href="servicios.html#s1" class="more">Ver más →</a>
         </div>
         <div class="card reveal">
           <div class="card-icon"><svg viewBox="0 0 24 24"><rect x="6" y="2" width="12" height="20" rx="2"/><path d="M11 18h2"/></svg></div>
           <h3>Aplicaciones Móviles</h3>
           <p>Apps para Android e iOS con diseño intuitivo, pensadas para tus clientes y tu operación.</p>
+          <a href="servicios.html#s2" class="more">Ver más →</a>
         </div>
         <div class="card reveal">
           <div class="card-icon"><svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.7 13.4a2 2 0 0 0 2 1.6h9.7a2 2 0 0 0 2-1.6L23 6H6"/></svg></div>
           <h3>Tiendas Online</h3>
           <p>Vende por internet las 24 horas con catálogo, carrito de compras y pagos en línea.</p>
-        </div>
-        <div class="card reveal">
-          <div class="card-icon"><svg viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.7-4 3-9 3s-9-1.3-9-3M3 5v14c0 1.7 4 3 9 3s9-1.3 9-3V5"/></svg></div>
-          <h3>Sistemas con Base de Datos</h3>
-          <p>Paneles administrativos para controlar ventas, inventario, clientes y reportes en tiempo real.</p>
-        </div>
-        <div class="card reveal">
-          <div class="card-icon"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg></div>
-          <h3>SEO y Posicionamiento</h3>
-          <p>Optimizamos tu sitio para que aparezca en Google cuando tus clientes te buscan.</p>
-        </div>
-        <div class="card reveal">
-          <div class="card-icon"><svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></div>
-          <h3>Redes Sociales</h3>
-          <p>Integramos tu web con Facebook, Instagram, TikTok y WhatsApp para atraer más clientes.</p>
+          <a href="servicios.html#s3" class="more">Ver más →</a>
         </div>
       </div>
+      <div class="center-btn"><a href="servicios.html" class="btn btn-outline">VER TODOS LOS SERVICIOS</a></div>
     </div>
   </section>
 
-  <!-- ============ PLANES ============ -->
-  <section class="plans" id="planes">
+  <!-- ============ CÓMO TRABAJAMOS ============ -->
+  <section class="bg-soft">
     <div class="container">
       <div class="section-title reveal">
-        <h2>Planes y Precios</h2>
+        <h2>Cómo trabajamos</h2>
         <div class="line"></div>
-        <p>Elige el plan que mejor se adapte a tu negocio. Cotizaciones personalizadas sin compromiso.</p>
+        <p>Un proceso simple y transparente, de la idea a tu página publicada.</p>
       </div>
-      <div class="grid-3">
-        <div class="card plan reveal">
-          <h3>Básico</h3>
-          <div class="price">$200 <small>USD</small></div>
-          <ul>
-            <li>Página web de 1 a 3 secciones</li>
-            <li>Diseño adaptable a celulares</li>
-            <li>Botón de WhatsApp</li>
-            <li>SEO básico</li>
-            <li>Enlace a redes sociales</li>
-          </ul>
-          <a href="#contacto" class="btn btn-outline">ELEGIR PLAN</a>
-        </div>
-        <div class="card plan featured reveal">
-          <span class="tag">MÁS POPULAR</span>
-          <h3>Profesional</h3>
-          <div class="price">$450 <small>USD</small></div>
-          <ul>
-            <li>Hasta 6 secciones</li>
-            <li>Formulario de contacto</li>
-            <li>Galería o catálogo</li>
-            <li>SEO optimizado</li>
-            <li>Google Maps y redes sociales</li>
-          </ul>
-          <a href="#contacto" class="btn btn-teal">ELEGIR PLAN</a>
-        </div>
-        <div class="card plan reveal">
-          <h3>Premium</h3>
-          <div class="price">A medida</div>
-          <ul>
-            <li>Tienda online o aplicación móvil</li>
-            <li>Panel administrativo</li>
-            <li>Base de datos</li>
-            <li>Pagos en línea</li>
-            <li>Soporte prioritario</li>
-          </ul>
-          <a href="#contacto" class="btn btn-outline">COTIZAR</a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============ PORTAFOLIO ============ -->
-  <section class="portfolio" id="portafolio">
-    <div class="container">
-      <div class="section-title reveal">
-        <h2>Portafolio</h2>
-        <div class="line"></div>
-        <p>Algunos de los proyectos que hemos desarrollado.</p>
-      </div>
-      <div class="grid-3">
-        <!-- Reemplaza cada bloque con tus proyectos reales.
-             Para usar una foto: cambia <div class="project-img p1">...</div>
-             por <img src="proyecto1.jpg" alt="Nombre del proyecto" style="height:200px;width:100%;object-fit:cover"> -->
-        <a href="#" class="project reveal">
-          <div class="project-img p1"><img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80" alt="Proyecto 1" loading="lazy" onerror="this.style.display='none'"></div>
-          <div class="project-info"><h3>Nombre del proyecto</h3><p>Página web · Restaurante</p></div>
-        </a>
-        <a href="#" class="project reveal">
-          <div class="project-img p2"><img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=800&q=80" alt="Proyecto 2" loading="lazy" onerror="this.style.display='none'"></div>
-          <div class="project-info"><h3>Nombre del proyecto</h3><p>Tienda online · Moda</p></div>
-        </a>
-        <a href="#" class="project reveal">
-          <div class="project-img p3"><img src="https://images.unsplash.com/photo-1551650975-87deedd944c3?auto=format&fit=crop&w=800&q=80" alt="Proyecto 3" loading="lazy" onerror="this.style.display='none'"></div>
-          <div class="project-info"><h3>Nombre del proyecto</h3><p>App móvil · Servicios</p></div>
-        </a>
+      <div class="steps">
+        <div class="step reveal"><h3>Reunión</h3><p>Conversamos sobre tu negocio, tus objetivos y lo que necesitas.</p></div>
+        <div class="step reveal"><h3>Diseño</h3><p>Te mostramos una propuesta visual y la ajustamos a tu gusto.</p></div>
+        <div class="step reveal"><h3>Desarrollo</h3><p>Programamos tu sitio o app, rápido, seguro y adaptable.</p></div>
+        <div class="step reveal"><h3>Entrega</h3><p>Publicamos tu proyecto y te enseñamos a usarlo. Te acompañamos después.</p></div>
       </div>
     </div>
   </section>
 
   <!-- ============ SECTORES ============ -->
-  <section class="sectors">
+  <section class="bg-white">
     <div class="container">
       <div class="section-title reveal">
         <h2>Negocios que atendemos</h2>
         <div class="line"></div>
       </div>
       <div class="sector-grid">
-        <!-- Para cambiar una foto, reemplaza el enlace del src por el de tu imagen -->
         <div class="sector reveal"><img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=600&q=80" alt="Restaurantes" loading="lazy" onerror="this.style.display='none'"><span>Restaurantes</span></div>
         <div class="sector reveal"><img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=600&q=80" alt="Tiendas" loading="lazy" onerror="this.style.display='none'"><span>Tiendas</span></div>
         <div class="sector reveal"><img src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=600&q=80" alt="Clínicas" loading="lazy" onerror="this.style.display='none'"><span>Clínicas</span></div>
@@ -560,21 +146,46 @@
     </div>
   </section>
 
-  <!-- ============ TESTIMONIOS ============ -->
-  <section class="testimonials" id="testimonios">
+  <!-- ============ PORTAFOLIO (resumen) ============ -->
+  <section class="bg-soft">
     <div class="container">
       <div class="section-title reveal">
-        <h2>Testimonios</h2>
+        <h2>Proyectos recientes</h2>
         <div class="line"></div>
-        <p>Lo que dicen nuestros clientes.</p>
+        <p>Algunos de los trabajos que hemos desarrollado.</p>
       </div>
-      <!-- IMPORTANTE: reemplaza estos textos con opiniones reales de tus clientes (con su permiso). -->
+      <div class="grid-3">
+        <a href="#" class="project reveal" data-cat="web">
+          <div class="project-img"><img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80" alt="Nombre del proyecto" loading="lazy" onerror="this.style.display='none'"><span class="project-cat">Página Web</span></div>
+          <div class="project-info"><h3>Nombre del proyecto</h3><p>Página web · Restaurante</p></div>
+        </a>
+        <a href="#" class="project reveal" data-cat="tienda">
+          <div class="project-img"><img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=800&q=80" alt="Nombre del proyecto" loading="lazy" onerror="this.style.display='none'"><span class="project-cat">Tienda Online</span></div>
+          <div class="project-info"><h3>Nombre del proyecto</h3><p>Tienda online · Moda</p></div>
+        </a>
+        <a href="#" class="project reveal" data-cat="app">
+          <div class="project-img"><img src="https://images.unsplash.com/photo-1551650975-87deedd944c3?auto=format&fit=crop&w=800&q=80" alt="Nombre del proyecto" loading="lazy" onerror="this.style.display='none'"><span class="project-cat">App Móvil</span></div>
+          <div class="project-info"><h3>Nombre del proyecto</h3><p>App móvil · Servicios</p></div>
+        </a>
+      </div>
+      <div class="center-btn"><a href="portafolio.html" class="btn btn-outline">VER PORTAFOLIO COMPLETO</a></div>
+    </div>
+  </section>
+
+  <!-- ============ TESTIMONIOS ============ -->
+  <!-- IMPORTANTE: reemplaza con opiniones reales de tus clientes (con su permiso) -->
+  <section class="bg-white">
+    <div class="container">
+      <div class="section-title reveal">
+        <h2>Lo que dicen nuestros clientes</h2>
+        <div class="line"></div>
+      </div>
       <div class="grid-3">
         <div class="card testi reveal">
           <div class="avatar">C1</div>
           <div>
             <div class="stars">★★★★★</div>
-            <p>"Aquí va la opinión real de tu primer cliente."</p>
+            <p>"Aquí va la opinión real de tu cliente número 1."</p>
             <strong>Nombre del cliente</strong><small>Nombre del negocio</small>
           </div>
         </div>
@@ -582,7 +193,7 @@
           <div class="avatar">C2</div>
           <div>
             <div class="stars">★★★★★</div>
-            <p>"Aquí va la opinión real de tu segundo cliente."</p>
+            <p>"Aquí va la opinión real de tu cliente número 2."</p>
             <strong>Nombre del cliente</strong><small>Nombre del negocio</small>
           </div>
         </div>
@@ -590,7 +201,7 @@
           <div class="avatar">C3</div>
           <div>
             <div class="stars">★★★★★</div>
-            <p>"Aquí va la opinión real de tu tercer cliente."</p>
+            <p>"Aquí va la opinión real de tu cliente número 3."</p>
             <strong>Nombre del cliente</strong><small>Nombre del negocio</small>
           </div>
         </div>
@@ -598,121 +209,77 @@
     </div>
   </section>
 
-  <!-- ============ NOSOTROS ============ -->
-  <section class="about" id="nosotros">
-    <div class="container">
-      <div class="section-title reveal">
-        <h2>Nosotros</h2>
-        <div class="line"></div>
-        <p>En ziko.pro ayudamos a negocios a dar el salto digital con páginas web y aplicaciones profesionales, a precios accesibles y con atención personalizada de principio a fin.</p>
-      </div>
-      <!-- Ajusta estas cifras a tus datos reales -->
-      <div class="about-grid">
-        <div class="stat reveal">
-          <div class="stat-img"><img src="https://images.unsplash.com/photo-1561070791-2526d30994b5?auto=format&fit=crop&w=600&q=80" alt="Diseño a medida" loading="lazy" onerror="this.style.display='none'"></div>
-          <div class="stat-body"><strong>100%</strong><span>Diseño a medida</span></div>
-        </div>
-        <div class="stat reveal">
-          <div class="stat-img"><img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=600&q=80" alt="Web siempre en línea" loading="lazy" onerror="this.style.display='none'"></div>
-          <div class="stat-body"><strong>24/7</strong><span>Tu web siempre en línea</span></div>
-        </div>
-        <div class="stat reveal">
-          <div class="stat-img"><img src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&fit=crop&w=600&q=80" alt="Adaptable a celulares" loading="lazy" onerror="this.style.display='none'"></div>
-          <div class="stat-body"><strong>Móvil</strong><span>Adaptable a celulares</span></div>
-        </div>
-        <div class="stat reveal">
-          <div class="stat-img"><img src="https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=600&q=80" alt="Soporte personalizado" loading="lazy" onerror="this.style.display='none'"></div>
-          <div class="stat-body"><strong>1 a 1</strong><span>Soporte personalizado</span></div>
-        </div>
+  <section class="cta-band">
+    <div class="container reveal">
+      <h2>¿Listo para llevar tu negocio a internet?</h2>
+      <p>Cuéntanos tu idea y te enviamos una cotización gratis y sin compromiso.</p>
+      <div class="hero-actions">
+        <a href="contacto.html" class="btn btn-white">SOLICITAR COTIZACIÓN</a>
+        <a href="#" class="btn btn-ghost wa-link">ESCRIBIR POR WHATSAPP</a>
       </div>
     </div>
   </section>
 
-  <!-- ============ CONTACTO ============ -->
-  <section class="contact" id="contacto">
-    <div class="container contact-grid">
-      <div class="contact-info reveal">
-        <h3>Consulta tu proyecto</h3>
-        <p>Cuéntanos qué necesitas y te enviamos una cotización gratis. Te respondemos rápido por WhatsApp.</p>
-        <div class="info-item"><i><svg viewBox="0 0 24 24"><path d="M21 11.5a8.4 8.4 0 0 1-12.4 7.4L3 21l2.1-5.4A8.4 8.4 0 1 1 21 11.5z"/></svg></i>WhatsApp: +51 999 999 999</div>
-        <div class="info-item"><i><svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 6l-10 7L2 6"/></svg></i>contacto@ziko.pro</div>
-        <div class="info-item"><i><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20"/></svg></i>www.ziko.pro</div>
-        <div class="info-item"><i><svg viewBox="0 0 24 24"><path d="M12 22s8-7.6 8-13a8 8 0 0 0-16 0c0 5.4 8 13 8 13z"/><circle cx="12" cy="9" r="3"/></svg></i>Lima, Perú</div>
-      </div>
-
-      <form id="form" class="reveal">
-        <div class="form-row">
-          <div><label for="nombre">Nombre</label><input id="nombre" required placeholder="Tu nombre"></div>
-          <div><label for="negocio">Negocio</label><input id="negocio" placeholder="Nombre de tu negocio"></div>
-        </div>
-        <label for="servicio">¿Qué necesitas?</label>
-        <select id="servicio">
-          <option>Página web</option>
-          <option>Aplicación móvil</option>
-          <option>Tienda online</option>
-          <option>Sistema con base de datos</option>
-          <option>Otro</option>
-        </select>
-        <label for="mensaje">Mensaje</label>
-        <textarea id="mensaje" placeholder="Cuéntanos sobre tu proyecto..."></textarea>
-        <button type="submit" class="btn btn-teal">ENVIAR POR WHATSAPP</button>
-      </form>
-    </div>
-  </section>
-
-  <!-- ============ FOOTER ============ -->
+  <!-- ============ PIE DE PÁGINA ============ -->
   <footer>
     <div class="container footer-grid">
-      <div><strong>ziko.pro</strong> · Desarrollo Web &amp; Aplicaciones</div>
-      <div class="socials">
-        <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24"><path d="M14 8V6c0-.8.5-1 1-1h2V2h-3c-3 0-4 2-4 4v2H8v3h2v11h4V11h3l.5-3z"/></svg></a>
-        <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24"><path d="M12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10zm0 8a3 3 0 1 1 0-6 3 3 0 0 1 0 6zm5.5-9.5a1.2 1.2 0 1 0 0 2.4 1.2 1.2 0 0 0 0-2.4zM17 2H7a5 5 0 0 0-5 5v10a5 5 0 0 0 5 5h10a5 5 0 0 0 5-5V7a5 5 0 0 0-5-5zm3 15a3 3 0 0 1-3 3H7a3 3 0 0 1-3-3V7a3 3 0 0 1 3-3h10a3 3 0 0 1 3 3z"/></svg></a>
-        <a href="#" aria-label="TikTok"><svg viewBox="0 0 24 24"><path d="M16.5 2h-3.3v13.2a2.9 2.9 0 1 1-2.1-2.8V9a6.2 6.2 0 1 0 5.4 6.2V8.6a7.6 7.6 0 0 0 4.5 1.4V6.7a4.5 4.5 0 0 1-4.5-4.7z"/></svg></a>
-        <a href="#" aria-label="YouTube"><svg viewBox="0 0 24 24"><path d="M23 7.2a3 3 0 0 0-2.1-2.1C19 4.6 12 4.6 12 4.6s-7 0-8.9.5A3 3 0 0 0 1 7.2 31 31 0 0 0 .5 12a31 31 0 0 0 .5 4.8 3 3 0 0 0 2.1 2.1c1.9.5 8.9.5 8.9.5s7 0 8.9-.5a3 3 0 0 0 2.1-2.1 31 31 0 0 0 .5-4.8 31 31 0 0 0-.5-4.8zM9.8 15.1V8.9l5.8 3.1z"/></svg></a>
+      <div class="brand">
+        <a href="index.html" class="logo">
+          <svg viewBox="0 0 100 100" aria-hidden="true">
+          <defs><linearGradient id="lg2" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2a6fdb"/><stop offset="1" stop-color="#22c3be"/></linearGradient></defs>
+          <path d="M18 24h52L30 76h52" stroke="url(#lg2)" stroke-width="13" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M62 12l14 12-14 12" stroke="#ffffff" stroke-width="7" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M38 64L24 76l14 12" stroke="#ffffff" stroke-width="7" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+          <div class="logo-text"><strong>ziko.pro</strong><span>DESARROLLO WEB &amp; APLICACIONES</span></div>
+        </a>
+        <p>Creamos páginas web y aplicaciones móviles profesionales para que tu negocio crezca en internet.</p>
+        <div class="socials">
+          <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24"><path d="M14 8V6c0-.8.5-1 1-1h2V2h-3c-3 0-4 2-4 4v2H8v3h2v11h4V11h3l.5-3z"/></svg></a>
+          <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24"><path d="M12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10zm0 8a3 3 0 1 1 0-6 3 3 0 0 1 0 6zm5.5-9.5a1.2 1.2 0 1 0 0 2.4 1.2 1.2 0 0 0 0-2.4zM17 2H7a5 5 0 0 0-5 5v10a5 5 0 0 0 5 5h10a5 5 0 0 0 5-5V7a5 5 0 0 0-5-5zm3 15a3 3 0 0 1-3 3H7a3 3 0 0 1-3-3V7a3 3 0 0 1 3-3h10a3 3 0 0 1 3 3z"/></svg></a>
+          <a href="#" aria-label="TikTok"><svg viewBox="0 0 24 24"><path d="M16.5 2h-3.3v13.2a2.9 2.9 0 1 1-2.1-2.8V9a6.2 6.2 0 1 0 5.4 6.2V8.6a7.6 7.6 0 0 0 4.5 1.4V6.7a4.5 4.5 0 0 1-4.5-4.7z"/></svg></a>
+          <a href="#" aria-label="YouTube"><svg viewBox="0 0 24 24"><path d="M23 7.2a3 3 0 0 0-2.1-2.1C19 4.6 12 4.6 12 4.6s-7 0-8.9.5A3 3 0 0 0 1 7.2 31 31 0 0 0 .5 12a31 31 0 0 0 .5 4.8 3 3 0 0 0 2.1 2.1c1.9.5 8.9.5 8.9.5s7 0 8.9-.5a3 3 0 0 0 2.1-2.1 31 31 0 0 0 .5-4.8 31 31 0 0 0-.5-4.8zM9.8 15.1V8.9l5.8 3.1z"/></svg></a>
+        </div>
       </div>
-      <div>© <span id="year"></span> <strong>ziko.pro</strong> · Todos los derechos reservados</div>
+      <div>
+        <h4>Páginas</h4>
+        <ul>
+          <li><a href="servicios.html">Servicios</a></li>
+          <li><a href="precios.html">Precios</a></li>
+          <li><a href="portafolio.html">Portafolio</a></li>
+          <li><a href="nosotros.html">Nosotros</a></li>
+          <li><a href="contacto.html">Contacto</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="privacidad.html">Política de privacidad</a></li>
+          <li><a href="terminos.html">Términos y condiciones</a></li>
+        </ul>
+        <a href="reclamaciones.html" class="reclamo-link">
+          <svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V2H6.5A2.5 2.5 0 0 0 4 4.5v15zM4 19.5A2.5 2.5 0 0 0 6.5 22H20v-5"/></svg>
+          Libro de Reclamaciones
+        </a>
+      </div>
+      <div>
+        <h4>Contacto</h4>
+        <ul>
+          <li><a class="wa-link" href="#">WhatsApp: +51 999 999 999</a></li>
+          <li><a href="mailto:contacto@ziko.pro">contacto@ziko.pro</a></li>
+          <li>Lima, Perú</li>
+          <li>Lun a Sáb: 9:00 a.m. – 7:00 p.m.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="container footer-bottom">
+      <div>© <span class="year"></span> <strong>ziko.pro</strong> · Todos los derechos reservados</div>
+      <div>Hecho con dedicación en Perú</div>
     </div>
   </footer>
 
-  <!-- ============ WHATSAPP FLOTANTE ============ -->
-  <a class="wa-float" id="waFloat" href="#" target="_blank" rel="noopener" aria-label="Escríbenos por WhatsApp">
-    <svg viewBox="0 0 24 24"><path d="M17.5 14.4c-.3-.1-1.8-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-.3-.1-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.4-.5.3-.5c.1-.2 0-.4 0-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.1 3.2 5.1 4.5 2.5 1 3 .8 3.6.8.6-.1 1.8-.7 2-1.4.3-.7.3-1.3.2-1.4-.1-.2-.3-.3-.6-.4zM12 21.8c-1.8 0-3.5-.5-5-1.4l-.4-.2-3.7 1 1-3.6-.2-.4A9.8 9.8 0 1 1 12 21.8zM12 0a12 12 0 0 0-10.3 18L0 24l6.2-1.6A12 12 0 1 0 12 0z"/></svg>
-    <span>¡Hablemos!</span>
-  </a>
+  <a class="wa-float wa-link" href="#" aria-label="Escríbenos por WhatsApp"><svg viewBox="0 0 24 24"><path d="M17.5 14.4c-.3-.1-1.8-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-.3-.1-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.4-.5.3-.5c.1-.2 0-.4 0-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.1 3.2 5.1 4.5 2.5 1 3 .8 3.6.8.6-.1 1.8-.7 2-1.4.3-.7.3-1.3.2-1.4-.1-.2-.3-.3-.6-.4zM12 21.8c-1.8 0-3.5-.5-5-1.4l-.4-.2-3.7 1 1-3.6-.2-.4A9.8 9.8 0 1 1 12 21.8zM12 0a12 12 0 0 0-10.3 18L0 24l6.2-1.6A12 12 0 1 0 12 0z"/></svg><span>¡Hablemos!</span></a>
 
-  <script>
-    // ⚠️ CAMBIA ESTE NÚMERO por tu WhatsApp (código de país + número, sin + ni espacios)
-    const WHATSAPP = "51999999999";
-
-    // Botón flotante
-    document.getElementById("waFloat").href =
-      "https://wa.me/" + WHATSAPP + "?text=" + encodeURIComponent("Hola ziko.pro, quiero información sobre una página web.");
-
-    // Formulario -> abre WhatsApp con el mensaje
-    document.getElementById("form").addEventListener("submit", function (e) {
-      e.preventDefault();
-      const texto =
-        "Hola ziko.pro 👋\n" +
-        "Nombre: " + document.getElementById("nombre").value + "\n" +
-        "Negocio: " + document.getElementById("negocio").value + "\n" +
-        "Servicio: " + document.getElementById("servicio").value + "\n" +
-        "Mensaje: " + document.getElementById("mensaje").value;
-      window.open("https://wa.me/" + WHATSAPP + "?text=" + encodeURIComponent(texto), "_blank");
-    });
-
-    // Menú móvil
-    const menu = document.getElementById("menu");
-    document.getElementById("hamburger").addEventListener("click", () => menu.classList.toggle("open"));
-    menu.querySelectorAll("a").forEach(a => a.addEventListener("click", () => menu.classList.remove("open")));
-
-    // Año automático
-    document.getElementById("year").textContent = new Date().getFullYear();
-
-    // Animación al hacer scroll
-    const io = new IntersectionObserver(entries => {
-      entries.forEach(en => { if (en.isIntersecting) { en.target.classList.add("visible"); io.unobserve(en.target); } });
-    }, { threshold: 0.12 });
-    document.querySelectorAll(".reveal").forEach(el => io.observe(el));
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
