@@ -147,6 +147,27 @@
     .fi-2 { top: 10px; right: -10px; animation-delay: 1s; }
     .fi-3 { bottom: 60px; left: 0; animation-delay: 1.5s; font-size: 1rem; }
     @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+    .hero-photo {
+      position: absolute; top: 45px; right: 0; width: 88%; height: 340px; z-index: 2;
+      border-radius: 22px; overflow: hidden;
+      background: linear-gradient(135deg, var(--navy), var(--blue));
+      box-shadow: 0 25px 60px rgba(11,31,61,0.35);
+      border: 6px solid #fff;
+    }
+    .hero-photo img { width: 100%; height: 100%; object-fit: cover; }
+    .hero-phone {
+      position: absolute; bottom: 0; right: 4%; width: 34%; height: 210px; z-index: 4;
+      border-radius: 20px; overflow: hidden;
+      background: linear-gradient(135deg, var(--teal), var(--blue));
+      box-shadow: 0 20px 45px rgba(11,31,61,0.4);
+      border: 6px solid #fff;
+      animation: float 6s ease-in-out infinite;
+    }
+    .hero-phone img { width: 100%; height: 100%; object-fit: cover; }
+    @media (max-width: 480px) {
+      .hero-photo { height: 240px; top: 40px; }
+      .hero-phone { height: 140px; width: 38%; }
+    }
 
     /* ============ SECCIONES ============ */
     section { padding: 90px 0; }
@@ -384,29 +405,12 @@
         </div>
         <div class="float-icon fi-3">SEO</div>
 
-        <div class="laptop">
-          <div class="laptop-screen">
-            <div class="screen-inner">
-              <div class="s-nav"><div class="s-logo"></div><div class="s-links"><i></i><i></i><i></i><i></i></div></div>
-              <div class="s-hero"><div class="txt"><i></i><i></i><i></i></div><div class="img"></div></div>
-              <div class="s-cards"><i></i><i></i><i></i></div>
-            </div>
-          </div>
-          <div class="laptop-base"></div>
+        <!-- FOTO PRINCIPAL: para cambiarla, reemplaza el enlace del src -->
+        <div class="hero-photo">
+          <img src="https://images.unsplash.com/photo-1547658719-da2b51169166?auto=format&fit=crop&w=1000&q=80" alt="Diseño de páginas web profesionales" onerror="this.style.display='none'">
         </div>
-
-        <div class="tablet">
-          <div class="tablet-inner">
-            <div class="t-side"><i></i><i></i><i></i><i></i><i></i></div>
-            <div class="t-main">
-              <div class="t-title"></div>
-              <div class="chart">
-                <i style="height:40%"></i><i style="height:65%"></i><i style="height:50%"></i>
-                <i style="height:80%"></i><i style="height:60%"></i><i style="height:95%"></i><i style="height:75%"></i>
-              </div>
-              <div class="t-stats"><i></i><i></i><i></i></div>
-            </div>
-          </div>
+        <div class="hero-phone">
+          <img src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&fit=crop&w=500&q=80" alt="Aplicaciones móviles" onerror="this.style.display='none'">
         </div>
       </div>
     </div>
@@ -479,7 +483,7 @@
         <div class="card plan featured reveal">
           <span class="tag">MÁS POPULAR</span>
           <h3>Profesional</h3>
-          <div class="price">$300 <small>USD</small></div>
+          <div class="price">$450 <small>USD</small></div>
           <ul>
             <li>Hasta 6 secciones</li>
             <li>Formulario de contacto</li>
@@ -518,12 +522,12 @@
              Para usar una foto: cambia <div class="project-img p1">...</div>
              por <img src="proyecto1.jpg" alt="Nombre del proyecto" style="height:200px;width:100%;object-fit:cover"> -->
         <a href="#" class="project reveal">
-          <div class="project-img p1"><img src="https://raw.githubusercontent.com/guardian360-hub/guardian360-hub.github.io/refs/heads/main/WhatsApp%20Image%202026-05-15%20at%207.54.11%20PM.jpeg" alt="Proyecto 1" loading="lazy" onerror="this.style.display='none'"></div>
-          <div class="project-info"><h3>GUARDIAN360</h3><p>App de seguridad ciudadana más completa del Perú. Alertas en tiempo real, monitoreo familiar con ubicacion exacta, asistente de voz, panel municipal y empresarial integrado.</p></div>
+          <div class="project-img p1"><img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80" alt="Proyecto 1" loading="lazy" onerror="this.style.display='none'"></div>
+          <div class="project-info"><h3>Nombre del proyecto</h3><p>Página web · Restaurante</p></div>
         </a>
         <a href="#" class="project reveal">
           <div class="project-img p2"><img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=800&q=80" alt="Proyecto 2" loading="lazy" onerror="this.style.display='none'"></div>
-          <div class="project-info"><h3>EDUREPORTE</h3><p>Gestión escolar · Registra notas, controla asistencia y mantén informados a los padres en tiempo real. Todo desde tu celular, en minutos.</p></div>
+          <div class="project-info"><h3>Nombre del proyecto</h3><p>Tienda online · Moda</p></div>
         </a>
         <a href="#" class="project reveal">
           <div class="project-img p3"><img src="https://images.unsplash.com/photo-1551650975-87deedd944c3?auto=format&fit=crop&w=800&q=80" alt="Proyecto 3" loading="lazy" onerror="this.style.display='none'"></div>
