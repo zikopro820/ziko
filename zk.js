@@ -49,6 +49,21 @@ const DB = {
     b.set(fs.doc(db, "pedidos", p.codigo), p); if (captura) b.set(fs.doc(db, "capturas", p.codigo), { pedido: p.codigo, captura });
     await b.commit(); return p;
   },
+  async pedido(c) {   // una compra por su código (+ su pago de saldo en revisión, si hay)
+    c = String(c || "").trim().toUpperCase(); if (!c) return null;
+    let p = null, pg = null;
+    if (DEMO) { const d = LDB.get(), x = d.pedidos[c]; if (!x) return null; p = { ...x, codigo: c }; pg = (d.pagos || {})[c + "-P" + ((p.pagos || []).length + 1)] || null; }
+    else { const { fs, db } = await fb(), x = await fs.getDoc(fs.doc(db, "pedidos", c)); if (!x.exists()) return null; p = { ...x.data(), codigo: c };
+      try { const y = await fs.getDoc(fs.doc(db, "pagos", c + "-P" + ((p.pagos || []).length + 1))); pg = y.exists() ? y.data() : null; } catch (e) {} }
+    p.pagosWeb = pg && pg.estado === "por-validar" ? [pg] : [];
+    return p;
+  },
+  async crearPago(id, pg, captura) {   // pago del saldo con su captura
+    if (DEMO) { const d = LDB.get(); d.pagos = d.pagos || {}; d.pagos[id] = pg; if (captura) d.capturas[id] = { pedido: id, captura }; LDB.save(d); return; }
+    const { fs, db } = await fb(), b = fs.writeBatch(db);
+    b.set(fs.doc(db, "pagos", id), pg); if (captura) b.set(fs.doc(db, "capturas", id), { pedido: id, captura });
+    await b.commit();
+  },
   async mensaje(m) {
     const id = codigo("MS");
     if (DEMO) { const d = LDB.get(); d.mensajes[id] = m; LDB.save(d); return id; }

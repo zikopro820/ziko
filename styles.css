@@ -485,3 +485,52 @@ footer .brand p { margin: 16px 0 20px; }
   .zk-cred { grid-template-columns: 80px 1fr auto; font-size: .85rem; } .zk-cta-demo { padding: 22px; }
 }
 .zk-grid-auto { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 26px; }
+/* Comprar sistema y Mis compras */
+@media (max-width: 1280px) and (min-width: 861px) { .menu { gap: 11px; } .menu a { font-size: .74rem; } .menu .btn { padding: 9px 13px; } .logo-text span { display: none; } }
+.zk-price { font-weight: 900; color: var(--navy); font-size: 1.15rem; margin-top: 10px; } .zk-price small { font-size: .75rem; color: var(--muted); } .zk-price span { font-size: .78rem; font-weight: 600; color: var(--teal); margin-left: 6px; }
+.zk-buy-row { display: flex; gap: 14px; align-items: center; justify-content: space-between; flex-wrap: wrap; background: linear-gradient(120deg, #eafaf9, #eef4ff); border: 1.5px solid #c9ece9; border-radius: 12px; padding: 12px 14px; margin-top: 4px; }
+.zk-buy-row small { display: block; color: var(--muted); font-size: .76rem; font-weight: 600; } .zk-buy-row b { color: var(--navy); font-size: 1.25rem; font-weight: 900; } .zk-buy-row b small { display: inline; } .zk-buy-row span { display: block; color: var(--teal); font-size: .8rem; font-weight: 700; }
+.zk-sum-img { width: 100%; height: 150px; object-fit: cover; object-position: top; border-radius: 12px; margin: 8px 0 4px; }
+.zk-pay-split { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 12px 0; } .zk-pay-split.three { grid-template-columns: repeat(3, 1fr); }
+.zk-pay-split div { background: var(--bg); border-radius: 10px; padding: 10px 12px; } .zk-pay-split small { display: block; color: var(--muted); font-size: .74rem; font-weight: 600; } .zk-pay-split b { color: var(--navy); font-size: 1.02rem; } .zk-pay-split b.ok { color: #1a8a55; } .zk-pay-split b.neg { color: #c0392b; }
+.zk-mc-sum { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 20px; }
+.zk-mc-sum div { background: linear-gradient(120deg, var(--navy), var(--blue)); color: #fff; border-radius: 14px; padding: 14px 16px; box-shadow: var(--shadow); } .zk-mc-sum small { display: block; opacity: .75; font-size: .76rem; font-weight: 600; } .zk-mc-sum b { font-size: 1.2rem; }
+.zk-mc { display: grid; gap: 14px; margin-bottom: 18px; }
+.zk-mc-h { display: flex; gap: 16px; align-items: center; } .zk-mc-h img, .zk-ph.sm { width: 110px; height: 72px; border-radius: 10px; object-fit: cover; object-position: top; flex: none; } .zk-ph.sm { font-size: 1.4rem; }
+.zk-mc-h small { color: var(--muted); font-weight: 600; font-size: .8rem; } .zk-mc-h h3 { color: var(--navy); font-size: 1.2rem; font-weight: 800; line-height: 1.25; margin: 2px 0 6px; }
+.zk-est { display: inline-block; padding: 4px 12px; border-radius: 20px; font-size: .76rem; font-weight: 800; background: #eef2f7; color: var(--navy); }
+.zk-est.e-por-validar { background: #fff4d1; color: #8a6200; } .zk-est.e-confirmado, .zk-est.e-desarrollo { background: #e3edff; color: #1f4fae; } .zk-est.e-entregado { background: #dcf5e4; color: #157a3a; } .zk-est.e-anulado, .zk-est.e-rechazado { background: #fde2e2; color: #b42318; }
+.zk-steps { list-style: none; display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
+.zk-steps li { display: grid; justify-items: center; gap: 4px; text-align: center; font-size: .78rem; font-weight: 700; color: var(--muted); padding: 10px 4px; border-radius: 10px; background: var(--bg); }
+.zk-steps i { font-style: normal; width: 28px; height: 28px; border-radius: 50%; display: grid; place-items: center; background: #dde5ef; color: #fff; font-weight: 900; }
+.zk-steps li.done { color: var(--navy); } .zk-steps li.done i { background: #1fa86a; } .zk-steps li.now { background: #e7f8f7; color: var(--navy); outline: 2px solid var(--teal-light); } .zk-steps li.now i { background: var(--teal); }
+.zk-bad { background: #fdecec; color: #a3261b; padding: 12px 14px; border-radius: 10px; font-weight: 600; }
+.zk-pagos { border: 1px solid #e1e8f0; border-radius: 12px; padding: 10px 14px; display: grid; gap: 6px; font-size: .9rem; } .zk-pagos > b { color: var(--navy); font-size: .85rem; }
+.zk-pagos div { display: grid; grid-template-columns: 1fr auto auto; gap: 12px; align-items: center; } .zk-pagos span { color: var(--muted); } .zk-pagos em { font-style: normal; font-size: .76rem; font-weight: 800; } .zk-pagos em.ok { color: #1a8a55; } .zk-pagos em.rev { color: #8a6200; }
+.zk-bol { padding: 10px 14px; border: 2px solid var(--teal-light); border-radius: 12px; font-size: .9rem; }
+.zk-mc .zk-acts .btn { padding: 10px 16px; font-size: .8rem; } .zk-q { border-color: #cfd9e6 !important; color: var(--muted) !important; }
+.zk-add { margin-top: 10px; } .zk-lnk { background: none; border: 0; color: #b42318; text-decoration: underline; cursor: pointer; font: inherit; }
+@media (max-width: 640px) { .zk-mc-sum { grid-template-columns: 1fr 1fr; } .zk-steps { grid-template-columns: 1fr 1fr; } .zk-pay-split.three { grid-template-columns: 1fr 1fr 1fr; } .zk-pay-split b { font-size: .9rem; } .zk-mc-h img, .zk-ph.sm { width: 80px; height: 56px; } .zk-pagos div { grid-template-columns: 1fr auto; } .zk-pagos em { grid-column: 1 / -1; } .zk-buy-row .btn { width: 100%; } }
+.zk-code-f input { flex: 1; min-width: 0; } form.box .zk-code-f .btn { width: auto; flex: none; }
+@media (max-width: 640px) { form.box .zk-code-f .btn { width: 100%; } }
+/* Plan mensual vs compra completa */
+.zk-mods { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 14px 0 6px; } .zk-mods.uno { grid-template-columns: 1fr; }
+.zk-mod { position: relative; border: 2px solid #dbe3ee; border-radius: 14px; padding: 18px 18px 16px; background: #fff; display: flex; flex-direction: column; gap: 6px; }
+.zk-mod.hi { border-color: var(--teal-light); background: linear-gradient(180deg, #f0fbfa, #fff 45%); box-shadow: 0 10px 26px rgba(31, 165, 168, .15); }
+.zk-mod-tag { align-self: flex-start; font-size: .68rem; font-weight: 800; letter-spacing: 1px; color: var(--teal); background: rgba(34, 195, 190, .12); padding: 4px 10px; border-radius: 20px; }
+.zk-mod h3 { color: var(--navy); font-size: 1.15rem; font-weight: 800; } .zk-mod-p { font-size: 1.8rem; font-weight: 900; color: var(--navy); line-height: 1.1; } .zk-mod-p small { font-size: .85rem; color: var(--muted); font-weight: 700; }
+.zk-mod-n { font-size: .82rem; color: var(--muted); } .zk-mod-n b { color: var(--navy); }
+.zk-mod ul { list-style: none; display: grid; gap: 5px; margin: 6px 0 12px; font-size: .86rem; } .zk-mod li::before { content: "✓ "; color: var(--teal); font-weight: 900; }
+.zk-mod li.no { color: var(--muted); } .zk-mod li.no::before { content: "• "; color: #c0392b; } .zk-mod li.info { color: var(--muted); font-size: .8rem; } .zk-mod li.info::before { content: "ℹ "; color: var(--blue); }
+.zk-mod .btn { margin-top: auto; width: 100%; padding: 12px; font-size: .85rem; }
+.zk-elige { max-width: 920px; margin: 0 auto; } .zk-mod-help { text-align: center; margin-top: 14px; color: var(--muted); font-size: .9rem; } .zk-mod-help a { color: var(--teal); font-weight: 700; }
+.zk-price .o { color: var(--muted); font-weight: 600; margin: 0 6px; font-size: .85rem; }
+.zk-pay-split .full { grid-column: 1 / -1; background: var(--navy); } .zk-pay-split .full small { color: rgba(255,255,255,.7); } .zk-pay-split .full b { color: #fff; font-size: 1.2rem; }
+.zk-est.m-ok { background: #dcf5e4; color: #157a3a; } .zk-est.m-warn { background: #fff4d1; color: #8a6200; } .zk-est.m-bad { background: #fde2e2; color: #b42318; } .zk-est.m-mute { background: #eef2f7; color: var(--muted); }
+.zk-warn { background: #fff6dd; color: #7a5300; padding: 10px 14px; border-radius: 10px; font-weight: 600; font-size: .9rem; }
+.zk-sop { color: var(--navy); font-size: .9rem; background: #eef6ff; border-radius: 10px; padding: 9px 12px; }
+.zk-modal-sec { margin-top: 60px; } .zk-sis-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; margin-top: 20px; }
+.zk-sis { background: #fff; border-radius: 12px; box-shadow: var(--shadow); padding: 14px 16px; display: grid; gap: 2px; transition: transform .2s; } .zk-sis:hover { transform: translateY(-3px); }
+.zk-sis b { color: var(--navy); } .zk-sis span { color: var(--muted); font-size: .85rem; } .zk-sis em { font-style: normal; color: var(--teal); font-weight: 800; font-size: .8rem; }
+.zk-acc-b .zk-mods { margin-top: 4px; }
+@media (max-width: 760px) { .zk-mods { grid-template-columns: 1fr; } }
