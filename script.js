@@ -13,7 +13,9 @@ const TIPOS = { sistema: "Sistema web", app: "Aplicación", web: "Página web", 
 const img = f => !f ? "" : /^(https?:|data:)/.test(f) ? f : "/" + String(f).replace(/^\//, "");
 const fechaPE = (s, hora = false) => { const d = new Date(s); if (isNaN(d)) return ""; return d.toLocaleDateString("es-PE", { day: "2-digit", month: "short", year: "numeric" }) + (hora ? " " + d.toLocaleTimeString("es-PE", { hour: "2-digit", minute: "2-digit" }) : ""); };
 const precioSoles = p => p.precio == null || p.precio === "" ? null : Math.round((+p.precio) * (p.moneda === "USD" ? (+AJ.tipoCambio || 3.75) : 1) * 100) / 100;
-const precioTxt = p => p.precio == null || p.precio === "" ? "A medida" : (p.moneda === "USD" ? "$" : "S/ ") + (+p.precio).toLocaleString("es-PE") + ` <small>${p.moneda === "USD" ? "USD" : "PEN"}</small>`;
+const TC = () => +AJ.tipoCambio || 3.75;
+const usd = sol => { const v = Math.round((+sol || 0) / TC() * 100) / 100; return "$" + v.toLocaleString("es-PE", { minimumFractionDigits: v % 1 ? 2 : 0, maximumFractionDigits: 2 }); };   // precio en soles → se muestra en dólares
+const precioTxt = p => p.precio == null || p.precio === "" ? "A medida" : (p.moneda === "USD" ? "$" + (+p.precio).toLocaleString("es-PE") : usd(p.precio)) + ` <small>USD</small>`;
 function aviso(msg) { let t = $(".zk-toast"); if (!t) { t = document.createElement("div"); t.className = "zk-toast"; t.setAttribute("role", "status"); document.body.appendChild(t); } t.textContent = msg; t.classList.add("show"); clearTimeout(t._t); t._t = setTimeout(() => t.classList.remove("show"), 3000); }
 
 /* ---------- Menú móvil, año y animación al hacer scroll ---------- */
@@ -43,7 +45,7 @@ function tarjeta(p) {
     <div class="project-img">${p.foto ? `<img src="${esc(img(p.foto))}" alt="${esc(p.nombre)}" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'zk-ph',textContent:'${esc(inicial(p.nombre))}'}))">` : `<div class="zk-ph">${esc(inicial(p.nombre))}</div>`}
       <span class="project-cat">${esc(TIPOS[p.tipo] || p.tipo)}</span>${p.demo ? `<span class="zk-demo-tag">DEMO DISPONIBLE</span>` : ""}</div>
     <div class="project-info"><h3>${esc(p.nombre)}</h3><p>${esc(p.desc || "")}</p>
-      ${p.demo && (conMensual(p) || precioSoles(p)) ? `<div class="zk-price">${conMensual(p) ? `${soles(cuotaDe(p)).replace(".00", "")}<small> /mes</small>` : ""}${conMensual(p) && precioSoles(p) ? `<span class="o">o</span>` : ""}${precioSoles(p) ? `${precioTxt(p)}<span>compra completa</span>` : ""}</div>` : ""}
+      ${p.demo && (conMensual(p) || precioSoles(p)) ? `<div class="zk-price">${conMensual(p) ? `${usd(cuotaDe(p))}<small> /mes</small>` : ""}${conMensual(p) && precioSoles(p) ? `<span class="o">o</span>` : ""}${precioSoles(p) ? `${precioTxt(p)}<span>compra completa</span>` : ""}</div>` : ""}
       ${p.demo || p.link ? `<div class="zk-acts">${p.demo ? `<a class="btn btn-teal" href="/demo?s=${encodeURIComponent(p.id)}">VER DEMO</a>` : ""}${p.demo && (conMensual(p) || precioSoles(p)) ? `<a class="btn btn-navy" href="/contratar?sistema=${encodeURIComponent(p.id)}">COMPRAR</a>` : ""}${p.link ? `<a class="btn btn-outline" href="${esc(p.link)}" target="_blank" rel="noopener">VER PROYECTO</a>` : ""}</div>` : ""}</div>
   </article>`;
 }
@@ -133,17 +135,17 @@ function paginaPrecios() {
   g.innerHTML = l.map(p => { const s = precioSoles(p);
     return `<div class="card plan reveal${p.destacado ? " featured" : ""}">${p.destacado ? `<span class="tag">MÁS POPULAR</span>` : ""}
       <h3>${esc(p.nombre)}</h3>${p.tipo ? `<div class="zk-plan-tipo">${esc(p.tipo)}</div>` : ""}
-      <div class="price">${precioTxt(p)}</div><div class="price-note">${esc(p.nota || "")}${s && p.moneda === "USD" ? ` · aprox. ${soles(s)}` : ""}</div>
+      <div class="price">${precioTxt(p)}</div><div class="price-note">${esc(p.nota || "")}${s ? ` · aprox. ${soles(s)}` : ""}</div>
       <ul>${(p.items || []).map(i => i.startsWith("-") ? `<li class="no">${esc(i.slice(1).trim())}</li>` : `<li>${esc(i)}</li>`).join("")}</ul>
       ${p.pagable && s ? `<a href="/contratar?plan=${encodeURIComponent(p.id)}" class="btn ${p.destacado ? "btn-teal" : "btn-outline"}">CONTRATAR</a>` : `<a href="/contacto?plan=${encodeURIComponent(p.nombre)}" class="btn ${p.destacado ? "btn-teal" : "btn-outline"}">COTIZAR</a>`}</div>`; }).join("");
   const md = $("#modalidades");
   if (md) { const sis = PORT.filter(p => p.demo && p.visible !== false && (conMensual(p) || precioSoles(p))), min = Math.min(...sis.map(p => cuotaDe(p)));
     md.innerHTML = sis.length ? `<div class="zk-modal-sec reveal"><div class="section-title"><h2>Sistemas web: ¿mensual o completo?</h2><div class="line"></div><p>Nuestros sistemas (ferretería, tienda de ropa, hospedaje, consultorio…) los puedes tener de dos formas. Elige la que le conviene a tu negocio.</p></div>
-      <div class="zk-mods"><div class="zk-mod"><span class="zk-mod-tag">PAGA MES A MES</span><h3>Plan mensual</h3><div class="zk-mod-p">${soles(min).replace(".00", "")}<small> / mes</small></div><p class="zk-mod-n">Pagas a fin de cada mes · sin permanencia${INSTAL() ? ` · ${soles(INSTAL()).replace(".00", "")} de instalación solo si quieres dominio propio` : ""}</p>
+      <div class="zk-mods"><div class="zk-mod"><span class="zk-mod-tag">PAGA MES A MES</span><h3>Plan mensual</h3><div class="zk-mod-p">${usd(min)}<small> / mes</small></div><p class="zk-mod-n">Pagas a fin de cada mes · sin permanencia${INSTAL() ? ` · ${usd(INSTAL())} de instalación solo si quieres dominio propio` : ""}</p>
         <ul><li>Empiezas pagando poco</li><li>Hosting, base de datos y mantenimiento incluidos</li><li>Soporte mientras tu plan esté activo</li><li class="no">El sistema y el código son de ziko.pro</li><li class="no">Si no pagas en ${GRACIA()} días después de fin de mes, se bloquea</li></ul></div>
         <div class="zk-mod hi"><span class="zk-mod-tag">PAGO ÚNICO · ES TUYO</span><h3>Compra completa</h3><div class="zk-mod-p">Pago único</div><p class="zk-mod-n"><b>${PCT()}% de adelanto</b> y el resto cuando te entregamos el sistema</p>
         <ul><li>Sin mensualidades nunca más</li><li>El sistema es tuyo para siempre</li><li>Código completo y base de datos a tu nombre</li><li>Puedes mejorarlo en el futuro</li><li><b>Soporte gratis por ${soporteTxt()}</b></li></ul></div></div>
-      <div class="zk-sis-list">${sis.map(p => `<a class="zk-sis" href="/contratar?sistema=${encodeURIComponent(p.id)}"><b>${esc(p.nombre)}</b><span>${conMensual(p) ? soles(cuotaDe(p)).replace(".00", "") + " /mes" : ""}${conMensual(p) && precioSoles(p) ? " · " : ""}${precioSoles(p) ? precioTxt(p).replace(/<[^>]+>/g, "") + " completo" : ""}</span><em>ELEGIR →</em></a>`).join("")}</div></div>` : ""; }
+      <div class="zk-sis-list">${sis.map(p => `<a class="zk-sis" href="/contratar?sistema=${encodeURIComponent(p.id)}"><b>${esc(p.nombre)}</b><span>${conMensual(p) ? usd(cuotaDe(p)) + " /mes" : ""}${conMensual(p) && precioSoles(p) ? " · " : ""}${precioSoles(p) ? precioTxt(p).replace(/<[^>]+>/g, "") + " completo" : ""}</span><em>ELEGIR →</em></a>`).join("")}</div></div>` : ""; }
   revelar(g); revelar(md || document);
 }
 
@@ -174,12 +176,12 @@ function comparativa(s, extra = "") {
   const c = cuotaDe(s), t = precioSoles(s), pct = PCT();
   const m = conMensual(s) ? `<div class="zk-mod">
       <span class="zk-mod-tag">PAGA MES A MES</span><h3>Plan mensual</h3>
-      <div class="zk-mod-p">${soles(c).replace(".00", "")}<small> / mes</small></div><p class="zk-mod-n">Pagas a fin de cada mes · sin permanencia${INSTAL() ? ` · <b>+ ${soles(INSTAL()).replace(".00", "")}</b> de instalación solo si quieres dominio propio` : ""}</p>
+      <div class="zk-mod-p">${usd(c)}<small> / mes</small></div><p class="zk-mod-n">Al pagar: ${soles(c)} al mes${INSTAL() ? ` · instalación ${soles(INSTAL())}` : ""}</p><p class="zk-mod-n">Pagas a fin de cada mes · sin permanencia${INSTAL() ? ` · <b>+ ${usd(INSTAL())}</b> de instalación solo si quieres dominio propio` : ""}</p>
       <ul><li>Sistema listo con tu logo y tus datos</li><li>Hosting y base de datos incluidos</li><li>Mantenimiento y mejoras</li><li>Soporte mientras tu plan esté activo</li><li class="no">El código y la base de datos son de ziko.pro</li><li class="no">Si no pagas en ${GRACIA()} días después de fin de mes, se bloquea</li></ul>
       <a class="btn btn-outline" href="/contratar?sistema=${encodeURIComponent(s.id)}&modo=mensual${extra}">ELEGIR PLAN MENSUAL</a></div>` : "";
   const k = t ? `<div class="zk-mod hi">
       <span class="zk-mod-tag">PAGO ÚNICO · ES TUYO</span><h3>Compra completa</h3>
-      <div class="zk-mod-p">${precioTxt(s)}</div><p class="zk-mod-n">${s.moneda === "USD" ? `≈ ${soles(t)} · ` : ""}<b>${pct}% de adelanto</b> (${soles(Math.round(t * pct) / 100)}) y el resto al entregar</p>
+      <div class="zk-mod-p">${precioTxt(s)}</div><p class="zk-mod-n">${t ? `≈ ${soles(t)} · ` : ""}<b>${pct}% de adelanto</b> (${soles(Math.round(t * pct) / 100)}) y el resto al entregar</p>
       <ul><li>Sin mensualidades: te olvidas de pagar cada mes</li><li>El sistema es tuyo para siempre</li><li>Código completo para mejorarlo en el futuro</li><li>Base de datos en tu propia cuenta</li><li><b>Soporte gratis por ${soporteTxt()}</b></li><li class="info">Tu dominio y el plan de Firebase (gratis para negocios pequeños) van a tu nombre</li></ul>
       <a class="btn btn-teal" href="/contratar?sistema=${encodeURIComponent(s.id)}&modo=completo${extra}">COMPRAR COMPLETO</a></div>` : "";
   return m || k ? `<div class="zk-mods${m && k ? "" : " uno"}">${m}${k}</div>` : "";
@@ -203,13 +205,13 @@ async function paginaContratar() {
   if (pl) item = { tipo: "plan", id: pl.id, nombre: `Plan ${pl.nombre}`, sub: pl.tipo || "", moneda: pl.moneda, precioTxt: precioTxt(pl), total: precioSoles(pl), incluye: (pl.items || []).filter(i => !i.startsWith("-")), volver: ["/precios", "Cambiar de plan"] };
   else if (si && modo === "completo") item = { tipo: "completo", id: si.id, nombre: si.nombre, sub: "Compra completa · pago único", moneda: si.moneda, precioTxt: precioTxt(si), total: precioSoles(si), foto: si.foto,
     incluye: ["El sistema es tuyo para siempre", "Código completo y base de datos a tu nombre", "Web pública + panel administrativo", "Personalizado con tu logo, colores y datos", "Capacitación para ti y tu equipo", `Soporte gratis por ${soporteTxt()}`], volver: [`/contratar?sistema=${encodeURIComponent(si.id)}`, "Ver plan mensual / completo"] };
-  else if (si && modo === "mensual") item = { tipo: "mensual", id: si.id, nombre: si.nombre, sub: "Plan mensual", moneda: "PEN", precioTxt: `${soles(cuotaDe(si)).replace(".00", "")} <small>/ mes</small>`, total: cuotaDe(si), foto: si.foto,
+  else if (si && modo === "mensual") item = { tipo: "mensual", id: si.id, nombre: si.nombre, sub: "Plan mensual", moneda: "USD", precioTxt: `${usd(cuotaDe(si))} <small>/ mes</small>`, total: cuotaDe(si), foto: si.foto,
     incluye: ["Sistema listo con tu logo y tus datos", "Hosting y base de datos incluidos", "Mantenimiento, mejoras y soporte", "Sin permanencia: cancelas cuando quieras", `Pagas a fin de cada mes (${GRACIA()} días de plazo)`], volver: [`/contratar?sistema=${encodeURIComponent(si.id)}`, "Ver plan mensual / completo"] };
   if (!item) { box.innerHTML = `<div class="box zk-panel" style="text-align:center"><h2>Elige qué quieres comprar</h2><p class="form-note">Ese plan o sistema no está disponible para pago en línea. Escríbenos y te ayudamos.</p><div class="zk-acts" style="justify-content:center"><a class="btn btn-teal" href="/precios">VER PLANES</a><a class="btn btn-outline" href="/demo">VER SISTEMAS</a></div></div>`; return; }
   const men = item.tipo === "mensual", total = item.total, adel = Math.round(total * pct) / 100;
   box.innerHTML = `<div class="zk-buy">
     <aside class="box zk-panel zk-sum"><span class="zk-step">${item.tipo === "plan" ? "TU PLAN" : "TU SISTEMA"}</span>${item.foto ? `<img class="zk-sum-img" src="${esc(img(item.foto))}" alt="">` : ""}<h2>${esc(item.nombre)}</h2><div class="zk-plan-tipo">${esc(item.sub)}</div>
-      <div class="zk-sum-p">${item.precioTxt}</div>${item.moneda === "USD" ? `<p class="form-note" style="margin:0">Equivale a <b>${soles(total)}</b> (tipo de cambio ${tc})</p>` : ""}
+      <div class="zk-sum-p">${item.precioTxt}</div>${total ? `<p class="form-note" style="margin:0">Al pagar equivale a <b>${soles(total)}</b> (tipo de cambio ${tc})</p>` : ""}
       <ul class="zk-inc">${item.incluye.map(i => `<li>${esc(i)}</li>`).join("")}</ul>
       ${men ? `<div class="zk-pay-split" id="ctSplit"></div>` : `<div class="zk-pay-split"><div><small>Adelanto ${pct}%</small><b>${soles(adel)}</b></div><div><small>Al entregar</small><b>${soles(total - adel)}</b></div></div>`}
       <a href="${item.volver[0]}" class="zk-back">← ${item.volver[1]}</a></aside>
@@ -217,7 +219,7 @@ async function paginaContratar() {
       <span class="zk-step">DATOS Y PAGO</span><h2>${men ? "Plan mensual · " : item.tipo === "completo" ? "Compra completa · " : "Comprar "}${esc(item.nombre)}</h2>
       ${men ? `<label>Dominio</label>
       <div class="zk-opts"><label class="zk-opt on"><input type="radio" name="dom" value="no" checked><span><b>Sin dominio propio</b><small>Usas un enlace de ziko.pro · sin instalación</small></span></label>
-        <label class="zk-opt"><input type="radio" name="dom" value="si"><span><b>Con dominio propio</b><small>minegocio.com · instalación ${soles(INSTAL())}</small></span></label></div>
+        <label class="zk-opt"><input type="radio" name="dom" value="si"><span><b>Con dominio propio</b><small>minegocio.com · instalación ${usd(INSTAL())} (${soles(INSTAL())})</small></span></label></div>
       <div id="domBox" hidden><label for="ctDom">¿Qué dominio quieres?</label><input id="ctDom" placeholder="Ej. ferreteriamendoza.com (si ya lo tienes, escríbelo)"></div>`
       : `<label>¿Cuánto pagas ahora?</label>
       <div class="zk-opts"><label class="zk-opt on"><input type="radio" name="tp" value="adelanto" checked><span><b>Adelanto ${pct}%</b><small>${soles(adel)} ahora y ${soles(total - adel)} al entregar</small></span></label>
@@ -409,9 +411,22 @@ if (reclamoForm) {
   });
 }
 
+/* ---------- Textos, imágenes y botones editados desde el panel ---------- */
+const PAGINA = (location.pathname.split("/").pop() || "index").replace(/\.html$/, "") || "index";
+function aplicarContenido(lista) {
+  lista.forEach(c => $$(`[data-ed="${CSS.escape(c.k)}"]`).forEach(el => {
+    if (el.tagName === "IMG") { if (c.v) { el.src = img(c.v); el.style.display = ""; } return; }
+    if (el.tagName === "A") { if (c.t) el.textContent = c.t; if (c.href && !el.classList.contains("wa-link")) { if (/^wa:/.test(c.href)) { el.classList.add("wa-link"); el.dataset.msg = c.href.slice(3) || "Hola ziko.pro 👋"; } else el.href = c.href; } return; }
+    if (c.v == null) return;
+    const mk = el.dataset.mk ? JSON.parse(el.dataset.mk) : (el.querySelector("span,strong,b,em") ? [el.querySelector("span,strong,b,em").outerHTML.match(/^<[^>]+>/)[0], "</" + el.querySelector("span,strong,b,em").tagName.toLowerCase() + ">"] : ["<b>", "</b>"]);
+    el.dataset.mk = JSON.stringify(mk);
+    el.innerHTML = esc(c.v).replace(/\*(.+?)\*/g, (_, t) => mk[0] + t + mk[1]).replace(/\n/g, "<br>");
+  }));
+}
+
 /* ---------- Arranque: carga los datos del panel ---------- */
 (async function () {
-  const c = await DB.catalogo();
+  const [c, ct] = await Promise.all([DB.catalogo(), DB.contenido(PAGINA).catch(() => [])]);
   AJ = c.aj || {}; PORT = c.port || []; PLANES = c.planes || [];
-  aplicarAjustes(); portafolio(); paginaDemo(); paginaPrecios(); paginaContratar(); paginaMisCompras();
+  aplicarContenido(ct); aplicarAjustes(); portafolio(); paginaDemo(); paginaPrecios(); paginaContratar(); paginaMisCompras();
 })();

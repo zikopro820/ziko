@@ -534,3 +534,7 @@ footer .brand p { margin: 16px 0 20px; }
 .zk-sis b { color: var(--navy); } .zk-sis span { color: var(--muted); font-size: .85rem; } .zk-sis em { font-style: normal; color: var(--teal); font-weight: 800; font-size: .8rem; }
 .zk-acc-b .zk-mods { margin-top: 4px; }
 @media (max-width: 760px) { .zk-mods { grid-template-columns: 1fr; } }
+/* Menú siempre en una sola línea */
+.menu a { white-space: nowrap; }
+@media (max-width: 1500px) and (min-width: 861px) { .nav { gap: 16px; } .menu { gap: 16px; } .menu a { font-size: .8rem; } .menu .btn { padding: 11px 18px; } }
+@media (max-width: 1180px) and (min-width: 861px) { .menu { gap: 10px; } .menu a { font-size: .72rem; } .menu .btn { padding: 9px 12px; } .logo-text strong { font-size: 1.4rem; } .logo-text span { display: none; } .logo svg { width: 40px; height: 40px; } }

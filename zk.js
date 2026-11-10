@@ -64,6 +64,13 @@ const DB = {
     b.set(fs.doc(db, "pagos", id), pg); if (captura) b.set(fs.doc(db, "capturas", id), { pedido: id, captura });
     await b.commit();
   },
+  async contenido(pid) {   // textos, imágenes y botones editados en el panel (de esta página y los de todas)
+    if (DEMO) { const d = LDB.get().contenido || {}; return Object.entries(d).filter(([, v]) => v.page === pid || v.page === "global").map(([k, v]) => ({ ...v, k })); }
+    const ck = "zk_ct_" + pid; try { const c = JSON.parse(sessionStorage.getItem(ck)); if (c && Date.now() - c.t < 90000) return c.d; } catch (e) {}
+    try { const { fs, db } = await fb(), q = fs.query(fs.collection(db, "contenido"), fs.where("page", "in", [pid, "global"]));
+      const d = (await fs.getDocs(q)).docs.map(x => ({ ...x.data(), k: x.id })); try { sessionStorage.setItem(ck, JSON.stringify({ t: Date.now(), d })); } catch (e) {} return d; }
+    catch (e) { console.warn("contenido:", e.message); return []; }
+  },
   async mensaje(m) {
     const id = codigo("MS");
     if (DEMO) { const d = LDB.get(); d.mensajes[id] = m; LDB.save(d); return id; }
