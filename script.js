@@ -41,12 +41,19 @@ function aplicarAjustes() {
 /* ---------- Tarjetas del portafolio ---------- */
 const inicial = n => { const w = String(n || "?").split("·")[0].replace(/[^A-Za-zÁÉÍÓÚÑáéíóúñ0-9 ]/g, "").split(" ").filter(Boolean); return (w.length > 1 ? w[0][0] + w[1][0] : (w[0] || "?").slice(0, 2)).toUpperCase(); };
 function tarjeta(p) {
+  const sis = esSis(p), dl = demoLibre(p), ven = vendible(p), acts = [];
+  const precio = sis ? (p.demo && ven ? `<div class="zk-price">${conMensual(p) ? `${usd(cuotaDe(p))}<small> /mes</small>` : ""}${conMensual(p) && precioSoles(p) ? `<span class="o">o</span>` : ""}${precioSoles(p) ? `${precioTxt(p)}<span>compra completa</span>` : ""}</div>` : "")
+    : precioSoles(p) ? `<div class="zk-price">${precioTxt(p)}<span>pago único</span></div>` : "";
+  if (sis && p.demo) acts.push(`<a class="btn btn-teal" href="/demo?s=${encodeURIComponent(p.id)}">VER DEMO</a>`);
+  if (dl) acts.push(`<a class="btn btn-teal" href="${esc(dl)}" target="_blank" rel="noopener">VER DEMO</a>`);
+  if (ven) acts.push(`<a class="btn btn-navy" href="/contratar?sistema=${encodeURIComponent(p.id)}${sis ? "" : "&modo=completo"}">COMPRAR</a>`);
+  else if (!sis) acts.push(`<a class="btn btn-navy" href="${esc(waLink(`Hola ziko.pro 👋 Quiero cotizar ${TIPO1[p.tipo] || "un proyecto"} como «${p.nombre}» para mi negocio.`))}" target="_blank" rel="noopener">COTIZAR</a>`);
+  if (sis && p.link) acts.push(`<a class="btn btn-outline" href="${esc(p.link)}" target="_blank" rel="noopener">VER PROYECTO</a>`);
   return `<article class="project zk-card reveal" data-cat="${esc(p.tipo)}">
     <div class="project-img">${p.foto ? `<img src="${esc(img(p.foto))}" alt="${esc(p.nombre)}" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'zk-ph',textContent:'${esc(inicial(p.nombre))}'}))">` : `<div class="zk-ph">${esc(inicial(p.nombre))}</div>`}
-      <span class="project-cat">${esc(TIPOS[p.tipo] || p.tipo)}</span>${p.demo ? `<span class="zk-demo-tag">DEMO DISPONIBLE</span>` : ""}</div>
+      <span class="project-cat">${esc(TIPOS[p.tipo] || p.tipo)}</span>${(sis && p.demo) || dl ? `<span class="zk-demo-tag">DEMO DISPONIBLE</span>` : ""}</div>
     <div class="project-info"><h3>${esc(p.nombre)}</h3><p>${esc(p.desc || "")}</p>
-      ${p.demo && (conMensual(p) || precioSoles(p)) ? `<div class="zk-price">${conMensual(p) ? `${usd(cuotaDe(p))}<small> /mes</small>` : ""}${conMensual(p) && precioSoles(p) ? `<span class="o">o</span>` : ""}${precioSoles(p) ? `${precioTxt(p)}<span>compra completa</span>` : ""}</div>` : ""}
-      ${p.demo || p.link ? `<div class="zk-acts">${p.demo ? `<a class="btn btn-teal" href="/demo?s=${encodeURIComponent(p.id)}">VER DEMO</a>` : ""}${p.demo && (conMensual(p) || precioSoles(p)) ? `<a class="btn btn-navy" href="/contratar?sistema=${encodeURIComponent(p.id)}">COMPRAR</a>` : ""}${p.link ? `<a class="btn btn-outline" href="${esc(p.link)}" target="_blank" rel="noopener">VER PROYECTO</a>` : ""}</div>` : ""}</div>
+      ${precio}${acts.length ? `<div class="zk-acts">${acts.join("")}</div>` : ""}</div>
   </article>`;
 }
 function portafolio() {
@@ -58,7 +65,7 @@ function portafolio() {
     const tipos = Object.keys(TIPOS).filter(t => vis.some(p => p.tipo === t)), f0 = params.get("tipo") || "todos";
     $("#portFilters").innerHTML = [["todos", "Todos"], ["demo", "Con demo"], ...tipos.map(t => [t, { sistema: "Sistemas web", app: "Aplicaciones", web: "Páginas web", tienda: "Tiendas online" }[t]])].map(([k, t]) => `<button class="filter-btn${k === f0 ? " active" : ""}" data-filter="${k}">${t}</button>`).join("");
     g.innerHTML = vis.map(tarjeta).join("") || `<p>Pronto publicaremos nuestros proyectos.</p>`;
-    const filtrar = f => $$(".project", g).forEach((el, i) => el.classList.toggle("hide", f === "demo" ? !vis[i].demo : f !== "todos" && el.dataset.cat !== f));
+    const filtrar = f => $$(".project", g).forEach((el, i) => el.classList.toggle("hide", f === "demo" ? !(vis[i].demo || demoLibre(vis[i])) : f !== "todos" && el.dataset.cat !== f));
     $("#portFilters").addEventListener("click", e => { const b = e.target.closest(".filter-btn"); if (!b) return; $$(".filter-btn").forEach(x => x.classList.toggle("active", x === b)); filtrar(b.dataset.filter); });
     filtrar(f0);
   }
@@ -160,7 +167,11 @@ const EST = { "por-validar": "Pago en revisión", confirmado: "Confirmado", desa
 const pagadoDe = p => +p.pagado || 0, saldoDe = p => p.modalidad === "mensual" ? 0 : Math.max(0, Math.round(((+p.total || 0) - pagadoDe(p)) * 100) / 100);
 const PCT = () => Math.min(100, Math.max(10, +AJ.adelantoPct || 50)), GRACIA = () => +AJ.gracia >= 0 && AJ.gracia !== "" ? +AJ.gracia : 5;
 const cuotaDe = s => +((s && s.mensual) || AJ.mensual || 120), INSTAL = () => +(AJ.instalacion ?? 300), SOPORTE = () => +AJ.soporteMeses || 24;
-const conMensual = s => s && s.demo && s.mensualActivo !== false && cuotaDe(s) > 0;
+const esSis = p => (p.tipo || "sistema") === "sistema";
+const conMensual = s => s && esSis(s) && s.demo && s.mensualActivo !== false && cuotaDe(s) > 0;
+const demoLibre = p => !esSis(p) && (p.demoUrl || p.link) || "";                    // webs, apps y tiendas: la demo abre directo, sin código
+const vendible = p => esSis(p) ? !!(p.demo && (conMensual(p) || precioSoles(p))) : !!precioSoles(p);   // webs, apps y tiendas: solo compra completa
+const TIPO1 = { sistema: "un sistema", app: "una aplicación", web: "una página web", tienda: "una tienda online" };
 const soporteTxt = () => { const m = SOPORTE(); return m % 12 ? `${m} meses` : `${m / 12} año${m > 12 ? "s" : ""}`; };
 const fechaCorta = iso => iso ? new Date(String(iso).slice(0, 10) + "T12:00:00").toLocaleDateString("es-PE", { day: "numeric", month: "long", year: "numeric" }) : "";
 /* Estado de un plan mensual según su fecha de pago y los días de plazo */
@@ -192,8 +203,9 @@ async function paginaContratar() {
   const box = $("#contratarBox"); if (!box) return;
   if (params.get("saldo")) return pagarSaldo(box, params.get("saldo"));
   const pct = PCT(), tc = (+AJ.tipoCambio || 3.75).toFixed(2);
-  const pl = PLANES.find(x => x.id === params.get("plan") && x.pagable && precioSoles(x)), si = PORT.find(x => x.id === params.get("sistema") && x.demo && (precioSoles(x) || conMensual(x)));
+  const pl = PLANES.find(x => x.id === params.get("plan") && x.pagable && precioSoles(x)), si = PORT.find(x => x.id === params.get("sistema") && vendible(x));
   let modo = params.get("modo");
+  if (si && !esSis(si)) modo = "completo";   // webs, apps y tiendas: solo compra completa
   if (si && !modo) {   // elegir cómo comprarlo
     box.innerHTML = `<div class="box zk-panel zk-elige"><span class="zk-step">ELIGE CÓMO LO QUIERES</span><h2>${esc(si.nombre)}</h2><p class="form-note">Compara y elige lo que más le conviene a tu negocio. Puedes probar la demo antes de decidir.</p>${comparativa(si)}
       <p class="zk-mod-help">¿Dudas? <a target="_blank" rel="noopener" href="${waLink(`Hola ziko.pro 👋 Quiero el sistema ${si.nombre}. ¿Me conviene el plan mensual o la compra completa?`)}">Pregúntanos por WhatsApp</a> · <a href="/demo?s=${encodeURIComponent(si.id)}">Probar la demo</a></p></div>`;
@@ -203,6 +215,8 @@ async function paginaContratar() {
   if (si && modo === "mensual" && !conMensual(si)) modo = precioSoles(si) ? "completo" : "";
   let item = null;
   if (pl) item = { tipo: "plan", id: pl.id, nombre: `Plan ${pl.nombre}`, sub: pl.tipo || "", moneda: pl.moneda, precioTxt: precioTxt(pl), total: precioSoles(pl), incluye: (pl.items || []).filter(i => !i.startsWith("-")), volver: ["/precios", "Cambiar de plan"] };
+  else if (si && !esSis(si)) item = { tipo: "completo", id: si.id, nombre: si.nombre, sub: `${TIPOS[si.tipo] || ""} · pago único`, moneda: si.moneda, precioTxt: precioTxt(si), total: precioSoles(si), foto: si.foto, etq: "TU " + (TIPOS[si.tipo] || "PROYECTO").toUpperCase(),
+    incluye: ["Hecha a tu medida con tu logo, colores y datos", "Diseño adaptable a celulares", "Botón de WhatsApp y redes sociales", "Código completo a tu nombre", "Publicada y lista para usar", `Soporte gratis por ${soporteTxt()}`], volver: ["/portafolio", "Ver portafolio"] };
   else if (si && modo === "completo") item = { tipo: "completo", id: si.id, nombre: si.nombre, sub: "Compra completa · pago único", moneda: si.moneda, precioTxt: precioTxt(si), total: precioSoles(si), foto: si.foto,
     incluye: ["El sistema es tuyo para siempre", "Código completo y base de datos a tu nombre", "Web pública + panel administrativo", "Personalizado con tu logo, colores y datos", "Capacitación para ti y tu equipo", `Soporte gratis por ${soporteTxt()}`], volver: [`/contratar?sistema=${encodeURIComponent(si.id)}`, "Ver plan mensual / completo"] };
   else if (si && modo === "mensual") item = { tipo: "mensual", id: si.id, nombre: si.nombre, sub: "Plan mensual", moneda: "USD", precioTxt: `${usd(cuotaDe(si))} <small>/ mes</small>`, total: cuotaDe(si), foto: si.foto,
@@ -210,7 +224,7 @@ async function paginaContratar() {
   if (!item) { box.innerHTML = `<div class="box zk-panel" style="text-align:center"><h2>Elige qué quieres comprar</h2><p class="form-note">Ese plan o sistema no está disponible para pago en línea. Escríbenos y te ayudamos.</p><div class="zk-acts" style="justify-content:center"><a class="btn btn-teal" href="/precios">VER PLANES</a><a class="btn btn-outline" href="/demo">VER SISTEMAS</a></div></div>`; return; }
   const men = item.tipo === "mensual", total = item.total, adel = Math.round(total * pct) / 100;
   box.innerHTML = `<div class="zk-buy">
-    <aside class="box zk-panel zk-sum"><span class="zk-step">${item.tipo === "plan" ? "TU PLAN" : "TU SISTEMA"}</span>${item.foto ? `<img class="zk-sum-img" src="${esc(img(item.foto))}" alt="">` : ""}<h2>${esc(item.nombre)}</h2><div class="zk-plan-tipo">${esc(item.sub)}</div>
+    <aside class="box zk-panel zk-sum"><span class="zk-step">${item.etq || (item.tipo === "plan" ? "TU PLAN" : "TU SISTEMA")}</span>${item.foto ? `<img class="zk-sum-img" src="${esc(img(item.foto))}" alt="">` : ""}<h2>${esc(item.nombre)}</h2><div class="zk-plan-tipo">${esc(item.sub)}</div>
       <div class="zk-sum-p">${item.precioTxt}</div>${total ? `<p class="form-note" style="margin:0">Al pagar equivale a <b>${soles(total)}</b> (tipo de cambio ${tc})</p>` : ""}
       <ul class="zk-inc">${item.incluye.map(i => `<li>${esc(i)}</li>`).join("")}</ul>
       ${men ? `<div class="zk-pay-split" id="ctSplit"></div>` : `<div class="zk-pay-split"><div><small>Adelanto ${pct}%</small><b>${soles(adel)}</b></div><div><small>Al entregar</small><b>${soles(total - adel)}</b></div></div>`}
@@ -260,7 +274,7 @@ async function paginaContratar() {
     const b = $("#ctBtn"); b.disabled = true; b.textContent = "ENVIANDO…";
     try { await DB.crearPedido(ped, pd.captura); } catch (x) { console.error(x); b.disabled = false; b.textContent = "CONFIRMAR Y ENVIAR PAGO"; return er("No se pudo enviar. Revisa tu conexión e inténtalo otra vez."); }
     MIS.add(cod);
-    const msg = `Hola ziko.pro 👋 Acabo de ${men ? "contratar el *plan mensual*" : item.tipo === "completo" ? "hacer la *compra completa*" : "contratar el *" + item.nombre + "*"}${item.tipo !== "plan" ? ` del sistema *${item.nombre}*` : ""} (código *${cod}*).\nNegocio: ${ped.negocio}${men && dom() ? `\nDominio: ${ped.dominioNombre || "por definir"}` : ""}\nPagué ${soles(ped.monto)} con ${ped.pago}${ped.banco ? " " + ped.banco : ""}.`;
+    const msg = `Hola ziko.pro 👋 Acabo de ${men ? "contratar el *plan mensual*" : item.tipo === "completo" ? "hacer la *compra completa*" : "contratar el *" + item.nombre + "*"}${item.tipo !== "plan" ? ` de *${item.nombre}*` : ""} (código *${cod}*).\nNegocio: ${ped.negocio}${men && dom() ? `\nDominio: ${ped.dominioNombre || "por definir"}` : ""}\nPagué ${soles(ped.monto)} con ${ped.pago}${ped.banco ? " " + ped.banco : ""}.`;
     okCompra(box, ped, msg, `Estamos validando tu pago de <b>${soles(ped.monto)}</b>. Te escribiremos por WhatsApp para empezar.${men ? " Tus próximas mensualidades las pagas desde <b>Mis compras</b>." : ""}`);
   });
 }
