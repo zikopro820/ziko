@@ -58,8 +58,8 @@ function tarjeta(p) {
 }
 function portafolio() {
   const vis = PORT.filter(p => p.visible !== false).sort((a, b) => (a.orden ?? 99) - (b.orden ?? 99));
-  const rec = $("#recientes"); if (rec) { const otros = $("#sistemasDemo") ? vis.filter(p => !p.demo) : vis, d = otros.filter(p => p.destacado); rec.innerHTML = d.concat(otros.filter(p => !p.destacado)).slice(0, 6).map(tarjeta).join(""); }
-  const sis = $("#sistemasDemo"); if (sis) { const l = vis.filter(p => p.demo); sis.innerHTML = l.map(tarjeta).join(""); if (!l.length) sis.closest("section").hidden = true; }
+  const rec = $("#recientes"); if (rec) { const otros = $("#sistemasDemo") ? vis.filter(p => !p.demo) : vis, d = otros.filter(p => p.destacado); rec.innerHTML = d.concat(otros.filter(p => !p.destacado)).slice(0, 3).map(tarjeta).join(""); }
+  const sis = $("#sistemasDemo"); if (sis) { const l = vis.filter(p => p.demo).slice(0, 3); sis.innerHTML = l.map(tarjeta).join(""); if (!l.length) sis.closest("section").hidden = true; }
   const g = $("#portGrid");
   if (g) {
     const tipos = Object.keys(TIPOS).filter(t => vis.some(p => p.tipo === t)), f0 = params.get("tipo") || "todos";
