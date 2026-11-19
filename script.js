@@ -341,7 +341,8 @@ function paginaMisCompras() {
             ${p.soporteHasta ? `<p class="zk-sop">🛟 Soporte gratis hasta el <b>${fechaCorta(p.soporteHasta)}</b></p>` : p.modalidad === "completo" ? `<p class="zk-sop">🛟 Incluye soporte gratis por ${soporteTxt()} desde la entrega</p>` : ""}`}
         ${pagos.length ? `<div class="zk-pagos"><b>Tus pagos</b>${pagos.map(x => `<div><span>${fechaPE(x.fecha)} · ${esc(x.metodo || "")}${x.adel ? " · adelanto" : ""}</span><b>${soles(x.monto)}</b><em class="${x.ok ? "ok" : "rev"}">${x.ok ? "✓ Confirmado" : "⏳ En revisión"}</em></div>`).join("")}</div>` : ""}
         ${p.link ? `<p><a class="btn btn-navy" href="${esc(p.link)}" target="_blank" rel="noopener">🌐 VER MI SISTEMA</a></p>` : ""}
-        ${p.boleta ? `<p class="zk-bol">🧾 ${esc(p.comprobante || "Boleta")} electrónica: <b>${esc(p.boleta)}</b></p>` : ""}
+        ${cpesDe(p).length ? `<div class="zk-cpes"><b>🧾 Tus comprobantes electrónicos</b>${cpesDe(p).map(([i, c]) => `<div><span>${c.tipo === "01" ? "Factura" : "Boleta"} <b>${esc(c.id)}</b><small>${esc(String(c.items && c.items[0] ? c.items[0].desc : "").split(" · ")[0])} · ${fechaCorta(c.fecha)}${c.anulado ? " · ANULADA" : ""}</small></span><b>${soles(c.total)}</b><button class="btn btn-outline" type="button" data-cpe="${esc(p.codigo)}|${i}">DESCARGAR</button></div>`).join("")}</div>`
+          : p.boleta ? `<p class="zk-bol">🧾 ${esc(p.comprobante || "Boleta")} electrónica: <b>${esc(p.boleta)}</b></p>` : ""}
         <div class="zk-acts"><button class="btn btn-teal" type="button" data-recibo="${esc(p.codigo)}">DESCARGAR RECIBO PDF</button>${!malo && !pend.length && p.estado !== "por-validar" && !p.baja && (men || s) ? `<a class="btn btn-navy" href="/contratar?saldo=${encodeURIComponent(p.codigo)}">${men ? `PAGAR MES ${soles(cuotaDe(p))}` : `PAGAR SALDO ${soles(s)}`}</a>` : ""}<a class="btn btn-outline" target="_blank" rel="noopener" href="${waLink(`Hola ziko.pro 👋 Consulto por mi compra ${p.codigo}.`)}">CONSULTAR</a><button class="btn btn-outline zk-q" type="button" data-quitar="${esc(p.codigo)}">QUITAR</button></div>
       </article>`; }).join("")}
       ${faltan.length ? `<p class="form-note">No encontramos: ${faltan.map(c => `<b>${esc(c)}</b> <button class="zk-lnk" data-quitar="${esc(c)}">quitar</button>`).join(", ")}</p>` : ""}`;
@@ -353,7 +354,10 @@ function paginaMisCompras() {
     const p = await DB.pedido(c).catch(() => null); if (!p) { $("#mcErr").textContent = "No encontramos ese código. Revísalo e inténtalo otra vez."; return; }
     MIS.add(p.codigo); $("#mcC").value = ""; aviso("✓ Compra agregada"); pintar();
   });
-  pintar();
+  // enlace que llega por WhatsApp: /mis-compras?c=ZK-XXXX → agrega la compra sola
+  const c0 = String(params.get("c") || "").trim().toUpperCase().slice(0, 14);
+  if (c0 && !MIS.get().includes(c0)) DB.pedido(c0).then(p => { if (p) MIS.add(p.codigo); }).catch(() => {}).finally(pintar);
+  else pintar();
 }
 document.addEventListener("click", async e => {
   const b = e.target.closest("[data-recibo]"); if (!b) return;
@@ -444,3 +448,35 @@ function aplicarContenido(lista) {
   AJ = c.aj || {}; PORT = c.port || []; PLANES = c.planes || [];
   aplicarContenido(ct); aplicarAjustes(); portafolio(); paginaDemo(); paginaPrecios(); paginaContratar(); paginaMisCompras();
 })();
+
+/* ---------- Comprobantes electrónicos (boleta / factura) de cada pago ---------- */
+const cpesDe = p => Object.entries(p.cpes || {}).filter(([, c]) => c && c.id && ["aceptado", "observado"].includes(c.estado)).sort((a, b) => +a[0] - +b[0]);
+const DOCS_ID = { "1": "DNI", "6": "RUC", "4": "C.E.", "7": "Pasaporte" };
+async function imprimirCpe(c) {
+  const w = window.open("", "_blank"); if (!w) { aviso("Permite las ventanas emergentes para descargar tu comprobante."); return; }
+  w.document.write("<p style='font:15px sans-serif;text-align:center;margin-top:40px'>Preparando tu comprobante…</p>");
+  let qr = ""; try { qr = (await qrCanvas(c.qr, 260)).toDataURL("image/png"); } catch (e) {}
+  const e = c.emisor || {}, f2 = n => (+n || 0).toFixed(2), tipo = c.tipo === "01" ? "FACTURA ELECTRÓNICA" : "BOLETA DE VENTA ELECTRÓNICA", prueba = c.modo !== "produccion";
+  w.document.open(); w.document.write(`<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${esc(c.id)}</title>
+  <style>@page{size:A4;margin:14mm}*{box-sizing:border-box}body{margin:0 auto;max-width:720px;padding:18px;font:13px/1.45 Arial,sans-serif;color:#111;background:#fff}
+  .top{display:flex;gap:16px;justify-content:space-between;align-items:flex-start}.box{border:2px solid #111;border-radius:8px;padding:10px 16px;text-align:center;font-weight:700;min-width:230px}
+  h1{font-size:18px;margin:0 0 4px}table{width:100%;border-collapse:collapse;margin:14px 0}th,td{padding:7px 6px;border-bottom:1px solid #ddd;text-align:left}th{background:#f2f5f9;font-size:12px}
+  .r{text-align:right}.tot td{border:0;padding:3px 6px}.tot .b{font-size:15px;font-weight:700}.pie{display:flex;gap:16px;align-items:center;margin-top:12px;border-top:1px solid #ddd;padding-top:12px}
+  .pie img{width:120px;height:120px;image-rendering:pixelated}.muted{color:#555;font-size:12px}.prueba{border:2px dashed #b45309;color:#b45309;text-align:center;font-weight:700;padding:6px;margin-bottom:12px}
+  .anul{border:2px solid #b42318;color:#b42318;text-align:center;font-weight:700;padding:6px;margin-bottom:12px}.np{margin:18px 0;text-align:center}@media print{.np{display:none}}</style></head><body>
+  ${prueba ? `<div class="prueba">COMPROBANTE DE PRUEBA · SIN VALOR TRIBUTARIO</div>` : ""}${c.anulado ? `<div class="anul">ANULADO CON ${esc(c.anulado)}</div>` : ""}
+  <div class="top"><div><h1>${esc(e.nombreComercial || e.razon || "")}</h1>${e.nombreComercial ? `<div>${esc(e.razon || "")}</div>` : ""}<div>${esc([e.direccion, e.distrito, e.provincia, e.departamento].filter(Boolean).join(" - "))}</div>${e.telefono ? `<div>Tel. ${esc(e.telefono)}</div>` : ""}</div>
+    <div class="box">RUC ${esc(e.ruc || "")}<br>${tipo}<br>${esc(c.id)}</div></div>
+  <p><b>Fecha de emisión:</b> ${esc(String(c.fecha).split("-").reverse().join("/"))} ${esc(c.hora || "")}<br><b>Cliente:</b> ${esc(c.cliente && c.cliente.nombre || "")}${c.cliente && c.cliente.num && c.cliente.num !== "-" ? ` · ${DOCS_ID[c.cliente.tipoDoc] || "Doc."} ${esc(c.cliente.num)}` : ""}${c.cliente && c.cliente.direccion ? `<br><b>Dirección:</b> ${esc(c.cliente.direccion)}` : ""}<br><b>Moneda:</b> Soles</p>
+  <table><thead><tr><th>Cant.</th><th>Descripción</th><th class="r">P. unit.</th><th class="r">Importe</th></tr></thead><tbody>${(c.items || []).map(l => `<tr><td>${l.cant}</td><td>${esc(l.desc)}</td><td class="r">${f2(l.precio)}</td><td class="r">${f2(l.total)}</td></tr>`).join("")}</tbody></table>
+  <table class="tot"><tr><td class="r">${e.afectacion === "20" ? "Op. exonerada" : "Op. gravada"}</td><td class="r" style="width:120px">S/ ${f2(c.gravada)}</td></tr><tr><td class="r">IGV (${e.afectacion === "20" ? 0 : e.igv ?? 18}%)</td><td class="r">S/ ${f2(c.igv)}</td></tr><tr><td class="r b">TOTAL</td><td class="r b">S/ ${f2(c.total)}</td></tr></table>
+  <p><b>SON:</b> ${esc(c.letras || "")}</p>
+  <div class="pie">${qr ? `<img src="${qr}" alt="Código QR">` : ""}<div class="muted">Representación impresa de la ${tipo.toLowerCase()}.<br>Resumen: ${esc(c.hash || "")}<br>Consulte su validez en www.sunat.gob.pe</div></div>
+  <div class="np"><button onclick="print()" style="padding:11px 20px;font-size:15px">🖨️ Imprimir o guardar en PDF</button></div></body></html>`);
+  w.document.close();
+}
+document.addEventListener("click", async e => {
+  const b = e.target.closest("[data-cpe]"); if (!b) return;
+  const [cod, i] = b.dataset.cpe.split("|"), p = RECIBOS[cod], c = p && (p.cpes || {})[i];
+  if (c) imprimirCpe(c);
+});

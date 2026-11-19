@@ -538,3 +538,9 @@ footer .brand p { margin: 16px 0 20px; }
 .menu a { white-space: nowrap; }
 @media (max-width: 1500px) and (min-width: 861px) { .nav { gap: 16px; } .menu { gap: 16px; } .menu a { font-size: .8rem; } .menu .btn { padding: 11px 18px; } }
 @media (max-width: 1180px) and (min-width: 861px) { .menu { gap: 10px; } .menu a { font-size: .72rem; } .menu .btn { padding: 9px 12px; } .logo-text strong { font-size: 1.4rem; } .logo-text span { display: none; } .logo svg { width: 40px; height: 40px; } }
+
+/* Comprobantes electrónicos en «Mis compras» */
+.zk-cpes { display: grid; gap: 8px; padding: 12px 14px; border: 2px solid var(--teal-light); border-radius: 12px; font-size: .9rem; margin: 12px 0; }
+.zk-cpes > div { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 12px; padding-top: 8px; border-top: 1px dashed rgba(0,0,0,.12); }
+.zk-cpes > div > span { flex: 1 1 200px; display: grid; } .zk-cpes small { opacity: .7; font-size: .78rem; }
+.zk-cpes .btn { padding: 8px 14px; font-size: .78rem; }
